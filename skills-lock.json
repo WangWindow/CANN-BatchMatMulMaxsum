@@ -1,0 +1,1335 @@
+{
+  "version": 1,
+  "skills": {
+    "aiss-tiling-solver": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/aiss-tiling-solver/SKILL.md",
+      "computedHash": "6f8aee67698a24a66811d6da9163d6b446d1482404b4397a49f4e41385de0721"
+    },
+    "aog-a3-author": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-a3-author/SKILL.md",
+      "computedHash": "926517dc89cba39036716e773f20fd577432ed6c5b953e560bdae51f6b7b7011"
+    },
+    "aog-input-gen-builder": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-input-gen-builder/SKILL.md",
+      "computedHash": "a205f8058c17479a3bf8e528829c438574946ceb618cf4f4b006dae63c431669"
+    },
+    "aog-knowledge-maintain": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-knowledge-maintain/SKILL.md",
+      "computedHash": "715c9b25a1a48d5871e179290ac8ea1cbebf93b17dea4cc148c3fe7f6870b4bb"
+    },
+    "aog-op-classify": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-op-classify/SKILL.md",
+      "computedHash": "f3501fe0256e2e2cf227cac3c266fc435965ea5c80a0dfedccd9438e89e49a33"
+    },
+    "aog-perf-eval": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-perf-eval/SKILL.md",
+      "computedHash": "280c98c78a6a7d6645b322ada1b5bd74dc218c9e7075a56ce714ee9a9f9965a6"
+    },
+    "aog-prior-art-verify": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-prior-art-verify/SKILL.md",
+      "computedHash": "4d8139cf8a26f47441c792d0ad35b3d731e0d632c414faa4ca0635389d979e2e"
+    },
+    "aog-report-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-report-gen/SKILL.md",
+      "computedHash": "2f7659b422742fdd3a1a83b77763e1f45fac437631c5cfb493590beb60ed258f"
+    },
+    "aog-self-critic": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/aog-self-critic/SKILL.md",
+      "computedHash": "b8684546939a6a6ed199d686a4324aee60d9095ad08f6563fa3713be5769a1da"
+    },
+    "ascend-call-generation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/ascend-call-generation/SKILL.md",
+      "computedHash": "ef64a9855b40fba2621c320a5349d5b834e622fe4ab9833a95b3805dd6c27ee8"
+    },
+    "ascendc-api-best-practices": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-api-best-practices/SKILL.md",
+      "computedHash": "6cd26237debe80d3792afeeb23612db13702e764352b80460ca70a47a76cf78a"
+    },
+    "ascendc-backward-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/ascendc-backward-gen/SKILL.md",
+      "computedHash": "bcd4a707626ad047ea26a92d89d33db2bd00aa5caa0b2fd63abbb94e2c395ec1"
+    },
+    "ascendc-blaze-best-practice": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-blaze-best-practice/SKILL.md",
+      "computedHash": "c84416bb91e5f860804e6cc28ded2d8db753dc1ec791dcdf354e712804d61c38"
+    },
+    "ascendc-blaze-migration": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-blaze-migration/SKILL.md",
+      "computedHash": "78cbf4e4fa900bc2ccdf01aca974c2c41ce293e3390640b46227b4c4cbd56293"
+    },
+    "ascendc-code-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-code-review/SKILL.md",
+      "computedHash": "338d88b0c381090be1b6664f4f3ccf5432bbb5177aaf5f43e649ef6de4f20fc1"
+    },
+    "ascendc-crash-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-crash-debug/SKILL.md",
+      "computedHash": "6a547d425e2af7ccfc482251306caaba464d00d6f2e5c9c779af0c5d4138f86c"
+    },
+    "ascendc-cross-gen-port": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/ascendc-cross-gen-port/SKILL.md",
+      "computedHash": "afe34a1021045920bb09225715dab3386f9692fb9eb463fea25852d6bcf4bbdf"
+    },
+    "ascendc-cross-gen-port-light": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ascendc-port-orchestrator/skills/ascendc-cross-gen-port-light/SKILL.md",
+      "computedHash": "5350fb802844453138192f0936d9711f51cd55591842684aa6cb0b65a3b772c5"
+    },
+    "ascendc-direct-invoke-template": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-direct-invoke-template/SKILL.md",
+      "computedHash": "fce731bf324b1508ec5164206bc525e2b68b19d3fa7c50bfd5ec257032959cfb"
+    },
+    "ascendc-direct-invoke-to-registry-invoke": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-direct-invoke-to-registry-invoke/SKILL.md",
+      "computedHash": "db8b551045900dcac07762b0f616a2502be44b77c05f697111cee839e2147fb3"
+    },
+    "ascendc-docs-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-docs-gen/SKILL.md",
+      "computedHash": "78839783b6b7af0ae4a9c00f88c9ce3711c16b67dc64080060030f5f4e401551"
+    },
+    "ascendc-docs-search": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-docs-search/SKILL.md",
+      "computedHash": "79de41e5201ccb1411d274d19366402531e7a25b1de99d5ecedebb4883776190"
+    },
+    "ascendc-env-check": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-env-check/SKILL.md",
+      "computedHash": "f1ba9b8076bed3c77d14a483623abfea8b45e3e39a3f5702641019bd88f3d110"
+    },
+    "ascendc-evaluation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/ascendc-evaluation/SKILL.md",
+      "computedHash": "545ede41d306906129a65f91f81ece6e45ebca07d8274621b6a40670bf9ed73d"
+    },
+    "ascendc-mc2-best-practice": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-mc2-best-practice/SKILL.md",
+      "computedHash": "4ea5184ed3ea3ad8e3f195f56c7065a732b599be25b0a97b349184b46309e362"
+    },
+    "ascendc-op-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/ascendc-op-debug/SKILL.md",
+      "computedHash": "bb31e10d0560a054e2e3d99fc32d4136c97df67376c2e1a10aa9314bf6fe7684"
+    },
+    "ascendc-perf-optimize": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-perf-optimize/SKILL.md",
+      "computedHash": "e67d52699bc6b7de9a64c80d850a0dde4dce85152f374632e8ffb201aec26a48"
+    },
+    "ascendc-performance-best-practices": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-performance-best-practices/SKILL.md",
+      "computedHash": "564d63c86c39be4bcb99c9486dee62626ebe8e2cbb904a968b67c159727060ac"
+    },
+    "ascendc-precision-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-precision-debug/SKILL.md",
+      "computedHash": "70e8673ec81bf6ab64febe1ff4e7e2237680aa8416308690fc140e28c413522e"
+    },
+    "ascendc-regbase-best-practice": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-regbase-best-practice/SKILL.md",
+      "computedHash": "e5fb2185514c208784dc1fefa59eef7eb1f4a01d165ebcebb321307b3c6696f7"
+    },
+    "ascendc-registry-invoke-template": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-registry-invoke-template/SKILL.md",
+      "computedHash": "d28fa4e62673219bb4f0fe36aac050d0990daf755c44e89ae1acc464c153df89"
+    },
+    "ascendc-registry-invoke-to-direct-invoke": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-registry-invoke-to-direct-invoke/SKILL.md",
+      "computedHash": "158017e7cd1253f1a751723896ff1f9a095e5dea9c851761f084458b0970118c"
+    },
+    "ascendc-runtime-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-runtime-debug/SKILL.md",
+      "computedHash": "063af74410ced4130c7f3bda2b121e09a763ae0c7b83d43cfb40e6a6773b3798"
+    },
+    "ascendc-simt-best-practices": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-simt-best-practices/SKILL.md",
+      "computedHash": "333c6b2efec090f7386cfe7f57a290df698a3abe5e3c6a3f80d042c82c14d71e"
+    },
+    "ascendc-simt-tiling-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-simt-tiling-design/SKILL.md",
+      "computedHash": "bf53e183195e20e81a51455db2ab6ec74628303b3d094123aadc2ca4465b4a74"
+    },
+    "ascendc-st-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-st-design/SKILL.md",
+      "computedHash": "a5f37b064355af21acaebfc49bce56c450c007f0c1b504dc93653b0039704cf1"
+    },
+    "ascendc-sync-audit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-sync-audit/SKILL.md",
+      "computedHash": "ab7bfba9979d9a59b04eb7ccc570a83850c0ff5180be37c9222511a37c486765"
+    },
+    "ascendc-tiling-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-tiling-design/SKILL.md",
+      "computedHash": "0f449b033789b45516ad54e81c7e0399beb553485b3cb81f12139867652a88aa"
+    },
+    "ascendc-ut-develop": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-ut-develop/SKILL.md",
+      "computedHash": "665e2770de9dd4f6a970ab7923f9f869de7b1ea3fd09006e130a9255c1aeff93"
+    },
+    "ascendc-whitebox-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ascendc-whitebox-design/SKILL.md",
+      "computedHash": "878ea4cdd6e30490c56501e6ddfa3fc4abbee401468301b56ec3511f0255fae3"
+    },
+    "asys-toolkit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "tools/asys-toolkit/SKILL.md",
+      "computedHash": "c40d1f66c152a5bfc5ffb540729163e24fedec7a3fd6fe83ff80c1f678bd8b14"
+    },
+    "cake-code-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/cake-code-review/SKILL.md",
+      "computedHash": "a63d8095e7585a9b8a8536e2c74089779706930b2eafb5459c5300284fe7c50d"
+    },
+    "cake-docs-search": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/cake-docs-search/SKILL.md",
+      "computedHash": "32b2b81089e5373f312fb3c5b2eb39099561c8f41135ec4c8085a386701c704b"
+    },
+    "cake-evo": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/cake-evo/SKILL.md",
+      "computedHash": "bafa066b9485feb64f1d9bbff8a72a711f7a518841d38007caa0ccf5fa6c9ff7"
+    },
+    "cake-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/cake-review/SKILL.md",
+      "computedHash": "4036aae57bda09699435508230085927363579965b691d756f7b4e3bf2a19218"
+    },
+    "cann-env-setup": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/cann-env-setup/SKILL.md",
+      "computedHash": "8b545da4c72360ece8afb711287d6048f10326d8e7102c643e89917e2b7af5ab"
+    },
+    "cannbot-skill-reviewer": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "infra/cannbot-skill-reviewer/SKILL.md",
+      "computedHash": "5938add23ea9da30c9c5cdb954d3e0d2ebbf3202155a78e415190a9beea65fa8"
+    },
+    "catlass-op-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/catlass-op-design/SKILL.md",
+      "computedHash": "73024dd541c11b9f8bb14940256bc9bb111d3faeacf215b229b99b523ede047d"
+    },
+    "catlass-op-develop": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/catlass-op-develop/SKILL.md",
+      "computedHash": "b72ae5a82ffca66e3f5c78a8385b5e5b8e85004bcbaf7140b825c20571326153"
+    },
+    "catlass-op-perf-tune": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/catlass-op-perf-tune/SKILL.md",
+      "computedHash": "c55825a7bccd425f5b652a976d71eee3fee3771b875073f7f0c8446e4863fe70"
+    },
+    "code-performance-advisor": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/code-performance-advisor/SKILL.md",
+      "computedHash": "f3d3bfae953b2b3ea85c72ee8aa342128609848ff4276a25ee32ba99a9673199"
+    },
+    "dsl-baseline-generation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/dsl-baseline-generation/SKILL.md",
+      "computedHash": "b4a4e967bf867d8cff83914999b6a81df19ce397963f6cafeddf710add0f7b39"
+    },
+    "dsl-lowering": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/dsl-lowering/SKILL.md",
+      "computedHash": "af72722a12e818e03499fd10be7fb44ebe5eb7a753ce8270576571c3dc30152e"
+    },
+    "dsl-optimization": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/dsl-optimization/SKILL.md",
+      "computedHash": "320c7fb7fc974ebeb5dc5276bb9c9cde95bc192f590c9b234efa9857f85345ee"
+    },
+    "evolution-knowledge": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ops-perf-evolution/skills/evolution-knowledge/SKILL.md",
+      "computedHash": "4e6755c3f4aacad4625a5a6f01f74f1a93b0956bb1ddefb064f55436629c8b5d"
+    },
+    "evolution-report": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ops-perf-evolution/skills/evolution-report/SKILL.md",
+      "computedHash": "8ed3ec1e34ea5fbf271d67f1265377c5aa09ddb37a56a7ec23798a72e96fa6e2"
+    },
+    "evolution-strategies": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ops-perf-evolution/skills/evolution-strategies/SKILL.md",
+      "computedHash": "37706cfddfa9be40f0ea20c1da262c00ad3d0e0af5ad78e764eb8d92dad85cbf"
+    },
+    "evolution-world-model": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ops-perf-evolution/skills/evolution-world-model/SKILL.md",
+      "computedHash": "00e81c898d0b5856ed5e8626a5e2190bb0a494fc5bfa940a45a241745ebbb90b"
+    },
+    "functional-conversion": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/functional-conversion/SKILL.md",
+      "computedHash": "0924a42bad0436a52e2dfa5516ff851d2c3252334be1a40a6918ecf1be721f18"
+    },
+    "ge-coredump-diagnose": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/ge-coredump-diagnose/SKILL.md",
+      "computedHash": "aec67406203d02a43e754caedabc6847dd6f66f16bc91a582fa3c4c6b32ca272"
+    },
+    "ge-dynamic-shape-diagnose": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/ge-dynamic-shape-diagnose/SKILL.md",
+      "computedHash": "a3d96fc6ec93450eb7e4272b8f2f5c569b59cff17bb9ede2e1062ec01f0a6830"
+    },
+    "ge-fusion-pass-skill": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/ge-fusion-pass-skill/SKILL.md",
+      "computedHash": "9c943cdf916970f1730a6c9ca7a8e7ef59c3d59b8489464264fb919cabc91c8e"
+    },
+    "ge-stream-log-analysis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/ge-stream-log-analysis/SKILL.md",
+      "computedHash": "4a565e08fc15cf17f074502b5ba20c0aaf3dc8a0ad070370f659e579f3af6c1c"
+    },
+    "git-version-management": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/git-version-management/SKILL.md",
+      "computedHash": "d7cdb27ad2763c99746a26c47d0e6de2b5e8458ff3871e5b2266e61bde15579d"
+    },
+    "gitcode-issue-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "infra/gitcode-issue-gen/SKILL.md",
+      "computedHash": "e7267df1a0745ffa881c93b09b4b7a615bbd2fc1082c74d82db2195908732157"
+    },
+    "gitcode-issue-handler": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "infra/gitcode-issue-handler/SKILL.md",
+      "computedHash": "44eee9c13318ac50b51c79595511ef7eb5b4841ba860e76e6a5425b62862ac30"
+    },
+    "gitcode-pr-handler": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "infra/gitcode-pr-handler/SKILL.md",
+      "computedHash": "ee6948a320a6065e56ecba32c3f43774ce9914d81a5a4a023203b3387ca2194f"
+    },
+    "gitcode-toolkit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "infra/gitcode-toolkit/SKILL.md",
+      "computedHash": "614e3eb020f1771a8e0e0a46c654b6681d0f3e5f739be77cf4779d5b9b5e67a9"
+    },
+    "knowledge-issue-report": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/knowledge-issue-report/SKILL.md",
+      "computedHash": "b5be46896879200ce70b8b3bf73da8468aea2e67203c7ff6613e0afd0741b09f"
+    },
+    "knowledge-lint": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/knowledge-lint/SKILL.md",
+      "computedHash": "ee35429250a97923320aa92d332768973aea16cf8ec0355b2eb1df89e2ca1f62"
+    },
+    "knowledge-query": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/knowledge-query/SKILL.md",
+      "computedHash": "4333d7dc394fc97d6c0b57ee74d446844eb72fe36355e4c779cf856b9a7ee27b"
+    },
+    "model-infer-fusion": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-fusion/SKILL.md",
+      "computedHash": "00a7ca3176aa2ec971fc14a49f19a4998032203d952c0b6242f7894f736fb92d"
+    },
+    "model-infer-graph-mode": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-graph-mode/SKILL.md",
+      "computedHash": "596ce49fcf5ce0d028778ccc1760fe439ed091f3ea618a458518828f565604db"
+    },
+    "model-infer-harmony": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-harmony/SKILL.md",
+      "computedHash": "d2b13e48a3eb56b969c2faf14f83d3d9b1258b4ff7563384d78e5b4aec157304"
+    },
+    "model-infer-kvcache": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-kvcache/SKILL.md",
+      "computedHash": "704918aca353746710b64dc42408cc02d64bb227cbe81c3ef0367ea1586c8b8e"
+    },
+    "model-infer-migrator": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-migrator/SKILL.md",
+      "computedHash": "fa09122eeb3091fc3c86001b4ae3ba205633a7e9f1a6b39d0acb6bd3a81c1f1a"
+    },
+    "model-infer-multi-stream": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-multi-stream/SKILL.md",
+      "computedHash": "2d6da28a660dcd24aa0bef54ef6ee0a5c075e3c0f5d628285624ef9fa722d1f2"
+    },
+    "model-infer-parallel-analysis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-parallel-analysis/SKILL.md",
+      "computedHash": "a124a26ea2fe82bc3a9226a7cb075e42898084b5bef16a375df0dbe25f5df2eb"
+    },
+    "model-infer-parallel-impl": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-parallel-impl/SKILL.md",
+      "computedHash": "32f824210f4bd2aa9ad44c323ffb3e79613c832b793539d8b2f6a677727c2c62"
+    },
+    "model-infer-perf-breakdown": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-perf-breakdown/SKILL.md",
+      "computedHash": "fcf999b069dfcac24f51a7e1f1d5b227a109b217db802f5cdf118f5fc18fb870"
+    },
+    "model-infer-precision-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-precision-debug/SKILL.md",
+      "computedHash": "547eebdaa55157a2ee15567e0af1ebd5d836642925f8f3f2f4743bce1e176dc9"
+    },
+    "model-infer-prefetch": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-prefetch/SKILL.md",
+      "computedHash": "b3e1a8760355c5d9eeb713f83030949208595c20d6f84aaf4d66e0b8f7f984fb"
+    },
+    "model-infer-profiling": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-profiling/SKILL.md",
+      "computedHash": "85e1d4490e5e51e1e1229fc271b316df75244eb0ce4ae6f414c17a475c4b5153"
+    },
+    "model-infer-quantization": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-quantization/SKILL.md",
+      "computedHash": "ba659c4addd40f0848a1a4c63f6f50c59cf0622e7b323e95776f15f5642b5a71"
+    },
+    "model-infer-runtime-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-runtime-debug/SKILL.md",
+      "computedHash": "04453c57e65d075c33302d4d3cb2ac119dc75a182a2970948432b929f9b67f45"
+    },
+    "model-infer-superkernel": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-infer-superkernel/SKILL.md",
+      "computedHash": "f9ee1428dae3d410b4bfd29f95435a461b5c3bc4e1513a5877098dc550d4249c"
+    },
+    "model-recommend-analysis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-recommend-analysis/SKILL.md",
+      "computedHash": "3051c284472140d62c50c3d1521679c7503eb2ef63a7634a4872fb9cd0dd8164"
+    },
+    "model-train-accuracy-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-train-accuracy-debug/SKILL.md",
+      "computedHash": "d906e92322e1c621116fc372b0a3df25fef52aeffe48e15f80dc8b33043de53c"
+    },
+    "model-train-log-visualization": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-train-log-visualization/SKILL.md",
+      "computedHash": "82d845906d0a17cf565c0e07e2172b49b7091a489b0365523d686624c384249f"
+    },
+    "model-train-oom-analysis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "model/model-train-oom-analysis/SKILL.md",
+      "computedHash": "9b834677bb8693552f66b34534fd1cb43f150b00bda47ce3b0115b6126d91615"
+    },
+    "msaicerr-toolkit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "tools/msaicerr-toolkit/SKILL.md",
+      "computedHash": "cb6caa4b34971118259e9b777efcebcbdd342b3e3300f8d1cd5d56c3d8829c04"
+    },
+    "msnpureport-toolkit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "tools/msnpureport-toolkit/SKILL.md",
+      "computedHash": "af0c1c57b127bfdef56d7f38fe1a1417476a0442f100014b9d12e75bc674d8e3"
+    },
+    "npu-arch": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/npu-arch/SKILL.md",
+      "computedHash": "fe24b1fc013630aa93716d60a1bebf7720d5000335577a2037179352d7ee4d7a"
+    },
+    "op-dashboard": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/op-dashboard/SKILL.md",
+      "computedHash": "903f9bec2b69f5dd18100d08beda28ccc2f364a684728ac1c32d72539da2b12c"
+    },
+    "op-desc-generation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/op-desc-generation/SKILL.md",
+      "computedHash": "b739acc2571939a0f761701bdd69191d01fa4c0d0b8b995eee6404f00cd15338"
+    },
+    "ops-direct-invoke-flash": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke-flash/skills/ops-direct-invoke-flash/SKILL.md",
+      "computedHash": "54dd537518946bd58bd7e4f326e43bfc484deac8db882bd47e302b471f1907ed"
+    },
+    "ops-direct-invoke-workflow": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/ops-direct-invoke-workflow/SKILL.md",
+      "computedHash": "2e16e8d8af329d4c92110eca8c1769933b0bdb182a9207c562b479da9a5b9dd3"
+    },
+    "ops-direct-invoke-workflow-maintain": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/ops-direct-invoke-workflow-maintain/SKILL.md",
+      "computedHash": "7f8eaa019f3cc6a9070ad0ccc3be43a5bf0e8087cde2018ee19d625f3aef0140"
+    },
+    "ops-evaluation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/ops-perf-evolution/skills/ops-evaluation/SKILL.md",
+      "computedHash": "aea6cb64c77c0bec5da06a7447bf5a7e1bbb9e8baa66b7e37ee58cad06f23766"
+    },
+    "ops-knowledge-cv-ingest": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/ops-knowledge-cv-ingest/SKILL.md",
+      "computedHash": "69d11fcd94a26956faf247568bc13d11a76282e5f5143b8b3316e13fc9e06ff4"
+    },
+    "ops-knowledge-ingest": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/ops-knowledge-ingest/SKILL.md",
+      "computedHash": "d27ea019399f9d83f6ef4080185ac6b27045886281d784ab78a78f9105b1d1a7"
+    },
+    "ops-knowledge-optimization-ingest": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/ops-knowledge-optimization-ingest/SKILL.md",
+      "computedHash": "257542841c2a4718d2e10adcfab19c5612c8637a1d1166d51336f80e29c75419"
+    },
+    "ops-knowledge-reference-ingest": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/ops-knowledge-reference-ingest/SKILL.md",
+      "computedHash": "339eec3085ac9b4966d60ad93025a1bb3eb69a37cbdc16d32a3f4e4d72258b85"
+    },
+    "ops-knowledge-vv-ingest": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/cannbot-knowledge/skills/ops-knowledge-vv-ingest/SKILL.md",
+      "computedHash": "07e162ce9a94a1aad5fcb4d79f4af0da6c0eb528e1ad353ca56e3e4b8837a17c"
+    },
+    "ops-precision-standard": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ops-precision-standard/SKILL.md",
+      "computedHash": "0b8bcee292ab69d029b4046fb1888819a34ceace8213b728d42518e5ac0b7c4b"
+    },
+    "ops-profiling": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ops-profiling/SKILL.md",
+      "computedHash": "b54f7e0101d1b96436433441ad0f7c82093519b8455be265afa5fac9d665430d"
+    },
+    "ops-simulator": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ops-simulator/SKILL.md",
+      "computedHash": "2aca82ccb6512bf46c96ff04d68603925ea0b6fbecb19d32f62935a7577ccbe8"
+    },
+    "ops-spec-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/ops-spec-gen/SKILL.md",
+      "computedHash": "e1bbffa1d13c63bf2e51fa800961412ca01ad8f2d919043465ebe441ee9a48bb"
+    },
+    "plugin-experience-summary": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/plugin-experience-summary/SKILL.md",
+      "computedHash": "55f4591dc97f26caf0ad7013516a6d432ff210b95574010c9bb196b4e2ee7757"
+    },
+    "plugin-perf-iteration": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/plugin-perf-iteration/SKILL.md",
+      "computedHash": "b8581ec3067e9b374fcfa28c4c00f47b2515e6f55e044a008102990a1df38e34"
+    },
+    "plugin-pr-submit": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/plugin-pr-submit/SKILL.md",
+      "computedHash": "fc43abf3b328d690db1fe59ed4a74fd54845db6c6383205da24138bfe53973bc"
+    },
+    "pypto-api-explore": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-api-explore/SKILL.md",
+      "computedHash": "99cd15063fbabcc639f22f7680acb1c7022506d15289889457218cce238f00e9"
+    },
+    "pypto-docs-search": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-docs-search/SKILL.md",
+      "computedHash": "88815a31ceb2f77ff7c36a59a41711f63711b2a2b3afcd97791c54cb970d42a0"
+    },
+    "pypto-general-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-general-debug/SKILL.md",
+      "computedHash": "5fa441eb4ff8a3f0e5129302c1f45d801116c0f0446d3b380d7daa64119ce4a6"
+    },
+    "pypto-golden-generate": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-golden-generate/SKILL.md",
+      "computedHash": "1aa503ebc413fd0ffca1525a599d092fc8a308633ec8733bdf7d4eab313e544d"
+    },
+    "pypto-intent-understand": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-intent-understand/SKILL.md",
+      "computedHash": "3d67fc1e28ba78cb4ed9e88062a7744fea771d49fd60acbee54e2351d4c154ce"
+    },
+    "pypto-memory-template": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-memory-template/SKILL.md",
+      "computedHash": "5979dcc83e4723374ac407f1735f9ec0852476cd95ec770663b858f35f85497d"
+    },
+    "pypto-op-construct": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-construct/SKILL.md",
+      "computedHash": "3c47d3882ce116cca5a614d85c639e322172cd21247561f59060997a3723bf80"
+    },
+    "pypto-op-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-design/SKILL.md",
+      "computedHash": "847ab2089210392fa089043bd0039efda2d67ebcba8c81ddfbfedc2749811da2"
+    },
+    "pypto-op-develop": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-develop/SKILL.md",
+      "computedHash": "ce324b53d4199ffafbb41a630623ae1603ecc5c12b03bdcc1dbd3afc39cb3086"
+    },
+    "pypto-op-knowledge": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-knowledge/SKILL.md",
+      "computedHash": "35224857093a6efeb1a5188737cf98f977c970f194dc37f0c0a54f224560e6f5"
+    },
+    "pypto-op-perf-tune": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-perf-tune/SKILL.md",
+      "computedHash": "5db4126366193e599a0d0668d02cf72d71ff4670c5521f96b7559234238ba2b7"
+    },
+    "pypto-op-plan": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-plan/SKILL.md",
+      "computedHash": "0b415c3d5ae0855713778d4b7edda7355422a16a2f15e4fd9a86de59df637793"
+    },
+    "pypto-op-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-review/SKILL.md",
+      "computedHash": "1000f238b85cb6acb3dbcf157c344b0f8d4b7e87be0f85c36fec78aee3640f3f"
+    },
+    "pypto-op-verify": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-op-verify/SKILL.md",
+      "computedHash": "006b75b09cf97bd3711be81385eddc1469c34914860c50d8b46658c6fc57cd71"
+    },
+    "pypto-orchestration-manual": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-orchestration-manual/SKILL.md",
+      "computedHash": "74ff5fd1c52868314f715f7bd7e953bbcaf5cd56f260ca58b3cf3f47919fe89d"
+    },
+    "pypto-precision-compare": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-precision-compare/SKILL.md",
+      "computedHash": "a8072d3cc9419187194d8554a16c41561853eddffba700d8cda82c365b11b2e5"
+    },
+    "pypto-precision-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/pypto-precision-debug/SKILL.md",
+      "computedHash": "dec7a531a72980d447b26460e3a51647b172918670d156e534c51d8f139536db"
+    },
+    "reference-generation": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/reference-generation/SKILL.md",
+      "computedHash": "45011a65051f75be9bc1df878e6271a86f095ead3fbd9d157d6c70486138112f"
+    },
+    "remote-cann-development": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/remote-cann-development/SKILL.md",
+      "computedHash": "fde4e1d739517ef3b454b97efa3e023269213eff2696ee1249b8979af640a954"
+    },
+    "repo-build-guide": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/repo-build-guide/SKILL.md",
+      "computedHash": "8bb03768d84bf993ae74c370e03505b809c53d4366cebb03d7b34103ceaf053c"
+    },
+    "repo-coding-rules": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/repo-coding-rules/SKILL.md",
+      "computedHash": "9350329e4163aac7038b4d2bf4c056476ffb320c3d41d4bf5ae647fcdbec5c28"
+    },
+    "repo-knowledge": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/repo-knowledge/SKILL.md",
+      "computedHash": "7a943e621bf534b032232549505749fee6a4907299b561de4008f849e5439624"
+    },
+    "repo-op-templates": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/repo-op-templates/SKILL.md",
+      "computedHash": "ab552f2513f70f1fdbe361f17a1d4e95b903a67bf7c46c43f3ab78a08a43ce43"
+    },
+    "repo-test-develop": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/repo-test-develop/SKILL.md",
+      "computedHash": "36d331e07c057e31b152bbbdb95ff4965ebf8d47b0b3cbb030ccdfb49de6967f"
+    },
+    "shmem-ops-code-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-code-gen/SKILL.md",
+      "computedHash": "04c59c0167ea13e66896b0d6a8f88fee5cb7d27fc80ef4c201c24325271cebed"
+    },
+    "shmem-ops-code-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-code-review/SKILL.md",
+      "computedHash": "7b8e8911631408ce51d83a94e7e89fd9ad824ac47ea57f4660871591afa68bae"
+    },
+    "shmem-ops-compile-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-compile-debug/SKILL.md",
+      "computedHash": "ba23682d1d59fef7bd650bdcd747c492772d2a23b5664128eafb992aeee3ee92"
+    },
+    "shmem-ops-correctness-eval": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-correctness-eval/SKILL.md",
+      "computedHash": "879360fbe6dfc439dca3924e2017ea4d2e9f676928842008b789c4fb5d31b211"
+    },
+    "shmem-ops-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-design/SKILL.md",
+      "computedHash": "954018f64dd00a251fa54b7fb5b8a07caa3a9e4d480e05ebc89384986848be12"
+    },
+    "shmem-ops-dev": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-dev/SKILL.md",
+      "computedHash": "b5259c3b5324415e52ec8a661639b9d36fe7ba22abe2ea537fcbbb3b990983d0"
+    },
+    "shmem-ops-performance-eval": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-performance-eval/SKILL.md",
+      "computedHash": "dc53ce5809181118f307f0bd5cd699cd070a0e70a32532214184e294938085c4"
+    },
+    "shmem-ops-performance-optim": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-performance-optim/SKILL.md",
+      "computedHash": "a0beaaedd89cd99a8ee7e183f070590908fcc7ceedfdfa6ce9e312a31ba548b8"
+    },
+    "shmem-ops-testcase-gen": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-testcase-gen/SKILL.md",
+      "computedHash": "bfc3d8a34963320945e0a209732e7c62d8a507eee50d82cbf73f549aa0ded427"
+    },
+    "shmem-ops-torch-bind": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/shmem-ops-generator/skills/shmem-ops-torch-bind/SKILL.md",
+      "computedHash": "c57b298d10779a77054cd246ea5f194a0c80c4e86716dd5905c0b97e77343499"
+    },
+    "skill-trace": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/skill-trace/SKILL.md",
+      "computedHash": "32bdaf772aa319353b2b6183daab9353fbbfef8e29136f6b5aeb3b379b131ee5"
+    },
+    "spec-to-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-registry-invoke/skills/spec-to-design/SKILL.md",
+      "computedHash": "3c8ffb8736f7e8ecaac5197fd270a44eba2efd79995d9a861f458d08928048ac"
+    },
+    "task-progress": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/collaborative-agent-kernel-evolution/skills/task-progress/SKILL.md",
+      "computedHash": "71a5ca74fcdb012998a214f0e21edeed54b68c12173e4214c7608cd35a5724f4"
+    },
+    "tilelang-api-best-practices": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-api-best-practices/SKILL.md",
+      "computedHash": "11dbb235ceb0e643a01ce53b9e15f58093e30004710dadcbbd03ff0f7c33fcfd"
+    },
+    "tilelang-env-check": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-env-check/SKILL.md",
+      "computedHash": "2987d6860eb3a02262cb047caa9e0292b190b6e3e77f4af787c56b7261b2c76e"
+    },
+    "tilelang-op-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-op-design/SKILL.md",
+      "computedHash": "a188f02c542fdb5e8c08ec03e7c5abda8059030316ee36090202cf9b59be7593"
+    },
+    "tilelang-op-develop": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-op-develop/SKILL.md",
+      "computedHash": "dec22f34b0d537143be3a340499f4f3e6a99d558a5b6c9f5a16d6a34bf3df976"
+    },
+    "tilelang-op-test-design": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-op-test-design/SKILL.md",
+      "computedHash": "7072617b3bf0d0429b7baaa437203109b9341ba0929991fed9756c7434c637c3"
+    },
+    "tilelang-perf-optimization": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-perf-optimization/SKILL.md",
+      "computedHash": "82ba066c1497a46c718d3452f97e6a59676d7b79530deaf14d817e3f66be2479"
+    },
+    "tilelang-programming-model-guide": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-programming-model-guide/SKILL.md",
+      "computedHash": "545440de0128472e30f014c386986aaa0a78fff77306505bc1e68aedfe67d816"
+    },
+    "tilelang-review": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-review/SKILL.md",
+      "computedHash": "1cebaeaabf4aaa0d77b9840c49e86bf41074474a707849740905f43b0017d05e"
+    },
+    "tilelang-submodule-pull": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/tilelang-submodule-pull/SKILL.md",
+      "computedHash": "b232cbda330a0f9f1b7d999f80d4395a6022be088db736af6f59860841315b8c"
+    },
+    "tilelang2ascend-case-simplifier": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-case-simplifier/SKILL.md",
+      "computedHash": "42038e4c7d24f84cf25be88760080f2bed9a9cfe5ab036fdbd2abfb62b497cf5"
+    },
+    "tilelang2ascend-operator-project-init": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-operator-project-init/SKILL.md",
+      "computedHash": "261309df6618805f4e0098d8f31a6d1dff465c9538f58e1083b099bd48dcff5e"
+    },
+    "tilelang2ascend-precision-tuning": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-precision-tuning/SKILL.md",
+      "computedHash": "648c7dbf53a29492ac1dc85de43b0d30530e697c825a2ff50578e09b7286f1ff"
+    },
+    "tilelang2ascend-tilelang-designer": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-tilelang-designer/SKILL.md",
+      "computedHash": "579fa07df0f56834649b6854120424a90cd4146208d1e277fe7f5fd278807d93"
+    },
+    "tilelang2ascend-trace-recorder": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-trace-recorder/SKILL.md",
+      "computedHash": "36fd065bb8a9d20af5738bdeee7a1cd9c80ec7fef7e9597a072a40289dadd78a"
+    },
+    "tilelang2ascend-translator": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/tilelang2ascendc-ops-generator/skills/tilelang2ascend-translator/SKILL.md",
+      "computedHash": "a142955f702e303dddb1cc2ab5e80b2cd963fb2125a2f165140dda0780f64ad3"
+    },
+    "torch-ascendc-op-extension": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/torch-ascendc-op-extension/SKILL.md",
+      "computedHash": "3c1e1689b6992d4f71726f71dfde6a9444f2f8cf3c23d64ef03770ad98bd6252"
+    },
+    "torch-custom-ops-guide": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-custom-ops-guide/SKILL.md",
+      "computedHash": "b854e754e0812b2d44bc429771de9f19e39ae3e4f5c928f379f716fe0a317dca"
+    },
+    "torch-npugraph-ex-compile-error-diagnosis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-compile-error-diagnosis/SKILL.md",
+      "computedHash": "ec4674fd2f802163057a15aeaeaf1387102de3c212542a6686d2a5bfd5dd37d3"
+    },
+    "torch-npugraph-ex-dfx-triage": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-dfx-triage/SKILL.md",
+      "computedHash": "18de3f001c407a044a8c9b7f1ff82cf06586705aedc9ae7a4ef09c62e33429af"
+    },
+    "torch-npugraph-ex-knowledge": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-knowledge/SKILL.md",
+      "computedHash": "28ddb9267a83845d533b1d1288bd6396dfee3f2da42c87dee38bb92bc9178287"
+    },
+    "torch-npugraph-ex-performance-diagnosis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-performance-diagnosis/SKILL.md",
+      "computedHash": "42b81e3367883137af732d8128316dd9fc702bf0e50d0b88be225590958c1ee1"
+    },
+    "torch-npugraph-ex-runtime-error-diagnosis": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-runtime-error-diagnosis/SKILL.md",
+      "computedHash": "83674ca5cc8aea2c4171b8a456c31241a0831b64bbf8c9bc870aaa4a42184de7"
+    },
+    "torch-npugraph-ex-template": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "graph/torch-npugraph-ex-template/SKILL.md",
+      "computedHash": "e3b0ea76fef011fe25593cd686e449f68c9f682acccfde9ee55ed9a86cede357"
+    },
+    "torch-ops-profiler": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/torch-ops-profiler/SKILL.md",
+      "computedHash": "bc9b3174eaac7650f2196d69eae11dbc034e71714b5a83911c6b96142ed3eab7"
+    },
+    "triton-latency-optimizer": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-latency-optimizer/SKILL.md",
+      "computedHash": "619c0c88c6acb0b833444c968fa3286b7ccbad0b12ae2d1f7947789e38c94986"
+    },
+    "triton-npu-convert": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/triton-optimizer/skills/triton-npu-convert/SKILL.md",
+      "computedHash": "c05092dff6d0496b1f95a1e530e1bdd149d93c9fa83556ac87d5596ebf62f49e"
+    },
+    "triton-npu-optimize": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-community/triton-optimizer/skills/triton-npu-optimize/SKILL.md",
+      "computedHash": "11823231fd7d0e3b832fe1a71a2a083a632f306ce7271b2c4728bcfb581d1690"
+    },
+    "triton-op-coding": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-op-coding/SKILL.md",
+      "computedHash": "63c364e9eeb497caa49c0d79bdf0e2058ec82bf661cae8e29f8e79b18ab35113"
+    },
+    "triton-op-designer": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-op-designer/SKILL.md",
+      "computedHash": "21811b596d5bfc5b1b887214f2f1b6e0f91f647675a414ea89c09b5baed6c3ff"
+    },
+    "triton-op-verifier": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-op-verifier/SKILL.md",
+      "computedHash": "ca5106d4b354b608c54ea39e482a1fbdbc045e306a9e2b132866e9e1164c4694"
+    },
+    "triton-precision-debug": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-precision-debug/SKILL.md",
+      "computedHash": "2a6545c3181808acccd6424f3e06070b199c7458acae7fdfc377372e36212ccf"
+    },
+    "triton-simulator-optimizer": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-simulator-optimizer/SKILL.md",
+      "computedHash": "6abdc7358097f3ff86fd9fb23ee72eb7e498413d129bbfa322e919c1501100f3"
+    },
+    "triton-task-extractor": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "ops/triton-task-extractor/SKILL.md",
+      "computedHash": "f6eda930a3be2c1cd138b905a53961788814e484b2efa476ccfe3f124b0aafdc"
+    },
+    "workflow-agent-permissions": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-agent-permissions/SKILL.md",
+      "computedHash": "3185ab27e0eabf28a4a654db1081113472b90be3fd632624aeef883adde04510"
+    },
+    "workflow-cp0": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp0/SKILL.md",
+      "computedHash": "4eb896ff4e38330c000c4f62e9924199f2e51b8eaac549ac1ee481f9147fa9e6"
+    },
+    "workflow-cp1": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp1/SKILL.md",
+      "computedHash": "65bee4ecbd703e3a12a0e2b27dd759381b538653b1da7bb56d5451514c0a2f6c"
+    },
+    "workflow-cp2-1": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp2-1/SKILL.md",
+      "computedHash": "c6f593fef411832632a00a7eaa12c5fcb1c9ee817318a22344e5804a620a9701"
+    },
+    "workflow-cp2-2": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp2-2/SKILL.md",
+      "computedHash": "ec7f9532911e8663fafeca1698231144dcbdebcb6bf51ac48b274a8d76ede947"
+    },
+    "workflow-cp3": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp3/SKILL.md",
+      "computedHash": "80acca4b77ec1fe596afbf1928c16661823844c63683be1b0d254d805b0e6ee5"
+    },
+    "workflow-cp4": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp4/SKILL.md",
+      "computedHash": "089d28fb02438aeef5836da224065191f7896bb36a2373a8367789c8fa04a031"
+    },
+    "workflow-cp5": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-cp5/SKILL.md",
+      "computedHash": "c56167801abe045f62d59aac4e8faae11beaf8cc9d0d2b2cb3cd46996a419ab9"
+    },
+    "workflow-doc-templates": {
+      "source": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceUrl": "https://gitcode.com/cann/cannbot-skills.git",
+      "sourceType": "git",
+      "skillPath": "plugins-official/ops-direct-invoke/skills/workflow-doc-templates/SKILL.md",
+      "computedHash": "064c095fcd5f8174576fc223675de5c46b2118a2b415b926cb10cf53213a2c20"
+    }
+  }
+}
