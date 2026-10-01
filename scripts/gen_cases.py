@@ -67,6 +67,12 @@ CASES = [
     ("p03", 2, 4096, 4096, 8192, 1, False, False, False),
     ("p04", 1, 8192, 8192, 32, 1, True, False, False),
     ("p05", 4, 2048, 2048, 2048, 2, False, False, False),
+    # ---- debug：转储 C tiles 供离线比对 ----
+    ("dbg", 1, 128, 384, 2048, 1, False, False, True),
+    ("dbg2", 1, 100, 300, 32, 1, False, False, True),
+    ("dbg3", 1, 64, 384, 32, 1, False, False, True),
+    ("dbg4", 1, 128, 384, 32, 1, False, False, True),
+    ("dbg5", 1, 128, 384, 2048, 1, False, False, True),
 ]
 
 
