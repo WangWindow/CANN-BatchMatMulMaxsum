@@ -26,15 +26,11 @@ cd ..
 
 echo "=== [3/4] Gen test data ==="
 cd build
-python3 ../scripts/gen_data.py
+python3 ../scripts/gen_cases.py
 
 echo "=== [4/4] Run + Verify ==="
-rm -f input/*.bin
-cp input/case0/* input/ 2>/dev/null || true
-cp output/golden_case0/* output/ 2>/dev/null || true
-find output -name '*.bin' ! -name 'golden_*' -delete 2>/dev/null || true
-if timeout 120 "./${OP_NAME}"; then
-    if python3 ../scripts/verify_result.py 0; then
+if timeout 1800 "./${OP_NAME}"; then
+    if python3 ../scripts/verify_all.py; then
         echo "=== PASSED ==="
     else
         echo "=== FAILED ==="
