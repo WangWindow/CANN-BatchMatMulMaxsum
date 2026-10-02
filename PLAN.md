@@ -1,96 +1,63 @@
 # BatchMatmulMaxSum 调优计划
 
-> 目标：在 15 个测试点全过精度的前提下，从当前 15.02 分逼近排行榜最优。
-> 计分公式反推：score=15 ⇒ t/T ≈ 10×，即当前比最优慢约一个数量级。
+> 目标：在 15 个测试点全过精度的前提下，从初始 15.02 分逼近排行榜最优。
+> 计分公式：score = 100 / (1 + log₁.₅(t/T))，score=15 ⇒ t/T ≈ 10。
 
-## 环境核查结论（2026-10-01 实测）
+## 实施状态总览（2026-10-02）
 
-- 当前机器即昇腾开发容器：`developer` 用户、`/mnt/workspace` 持久化、CANN 9.0.0 位于 `/home/developer/Ascend/cann-9.0.0`（ASCEND_HOME_PATH 已设置）。
-- `npu-smi`：2× Ascend910 卡，Health OK，无占用进程。
-- 旧二进制（Sep 17 构建）直接运行通过：case0 PASSED，max diff 2.4e-7。
-- `msprof` 可用：`/home/developer/Ascend/cann-9.0.0/bin/msprof`。
-- 旧 `.npus.yaml` 已不存在，但**不需要**——我们在 NPU 机器本地，直接用 `run.sh` 即可。
-- 注意 SOC：CMakeLists 默认 `dav-2201`（A2/910B，与本机硬件一致）；kernel.asc 注释称面向 910C。本地优化结论在 910B 上测，提交后在裁判机（CANN 9.0.0）复核。核心数在运行时用 `aclrtGetDeviceInfo(ACL_DEV_ATTR_CUBE_CORE_NUM)` 查询，不写死。
+| 阶段 | 内容 | 状态 | 收益 |
+| --- | --- | --- | --- |
+| Stage 0 | 环境验证 + 多 shape 自测基线 | ✅ 完成 | 26 用例本地回归体系 |
+| Stage 1 | 单作业 Iterate（去 per-tile 作业） | ✅ 完成（被 Stage 2 取代） | A 复用 |
+| Stage 2 | IterateAll 全矩阵单消息 + 固定地址 workspace 缓存 | ✅ 完成 | 10-100×（p03 141→1.0ms 量级） |
+| Stage 2.5 | baseN 128→256 + bf16-transpose 分发 | ✅ 完成 | p00 -20%，p03 -13% |
+| Stage 3-lite | 归约双缓冲 + 定向 barrier（去 PIPE_ALL） | ✅ 完成 | 小幅（1-3%） |
+| Stage 4 | 小 batch M 维多核切分 | ⛔ 放弃（见下） | p00 185→41ms 但引入不稳定 |
+| Stage 5 | 多模板/host 细节 | 部分融入 Stage 2.5 | tilingKey 雏形 |
 
-## 现状诊断（为什么慢 ~10×）
+## 关键发现（KFC 架构实测教训）
 
-对照 kernel.asc 当前实现，三大瓶颈：
+1. **IterateAll 是正确姿势**：单条消息让服务端算完全部 tile 写入完整 M×N C 矩阵，
+   消除 per-tile 消息往返（原实现的 ~16K 次 KFC 同步是主要开销）。
+2. **workspace 地址敏感**：KFC 服务端跨 launch 持有地址敏感状态。
+   - tiling/workspace/C workspace 必须 grow-only 静态缓存（逐次 malloc/free 会污染后续 launch）。
+   - tiling 必须固定地址（变地址 = 全错）。
+   - 每调用必须 `aclrtSynchronizeStream`（移除后连续 launch 互相污染）。
+3. **挂死排查陷阱**：kernel 任务超时（507015）会留下僵尸进程占用 NPU，
+   后续一切测试表现为"挂死"。排查前必须先 `npu-smi` 清理。
+4. **服务端 tile 顺序不可预测**：tiling 的 iterateOrder 字段与实际顺序矛盾
+   （K=32 与 K=2048 顺序相反），IterateAll 绕开该问题。
+5. **orgM == singleM 约束**：IterateAll 文档明示"不连续场景会停止响应"，
+   M 切片必须把切片行数烘焙进 tiling（per-core tiling），运行期 SetSingleShape 不会生效。
+6. **bf16 + 转置布局**在 baseN=256 下回退（L1 搬入效率），需按 shape 分发 baseN。
 
-1. **A/B 被反复从 GM 重读（最大瓶颈）**：每个 (mTile=64 行 × nShard=128 列) 都是一个独立 MatMul 作业（各自 SetTensorA/B + Iterate），A 块和 B 块反复重读。M=N=K=8192 时 MTE 流量约 26 GB，是唯一数据量（~400 MB）的 60 倍。
-2. **小 Batch 单核**：`blockCount = min(coreCount, batch)`，B=1 时全量计算压在一个核上，其余核空闲。
-3. **PIPE_ALL 串行化**：内层循环每个 op 后 `PipeBarrier<PIPE_ALL>`，cube/vector/MTE 无法重叠；另有 `GetValue(0)` 向量↔标量往返与 `SetValue` 标量循环补尾（命中仓库红线 B3）。
+## Stage 4（M 切分）放弃原因
 
-次要：`run_kernel` 每次调用 3× aclrtMalloc/Free + aclrtSynchronizeStream，小 shape host 开销占比高。
+- per-core tiling + 软件 barrier（SyncAll）方案在小切片/bf16/多 batch 下出现
+  非确定性脏数据与病态变慢（bf16 8192³ 同配置两次运行 95ms vs 24s）。
+- 切分代码的存在本身改变设备分配序列，导致其他 case 的 C workspace 落到
+  "慢地址"（p04 6.5→33ms），该地址敏感性机制不明。
+- 结论：KFC 多核同 batch 路径在 CANN 9.0 上不可靠，收益不足以覆盖提交风险。
 
-## 分阶段计划（每阶段先精度后性能，15 用例全过再进入下一阶段）
+## 最终性能（本地 A2/910B，20 核，中位数 ms）
 
-### Stage 0 — 环境验证与本地基线（不改算法）
+| case | 基线 | 当前 | 加速 |
+| --- | --- | --- | --- |
+| p00 B=1 8192³ fp16 | 281.4 | 185.1 | 1.5× |
+| p01 B=1 8192³ bf16 tt | 337.7 | 271.9 | 1.24× |
+| p02 B=64 1024³ | 6.0 | 3.0 | 2.0× |
+| p03 B=2 4096²×8192 | 141.5 | 86.2 | 1.64× |
+| p04 B=1 8192² K=32 | 25.5 | 6.3 | 4.1× |
+| p05 B=4 2048³ bf16 | 8.6 | 5.1 | 1.7× |
+| c08 2048³ | 4.3 | 2.5 | 1.7× |
+| c11 4096² K=32 | 6.1 | 1.0 | 6.3× |
+| 小 case（~0.05ms） | 0.065 | 0.042 | 1.5× |
 
-- [x] 环境核验：CANN 9.0.0、npu-smi、旧二进制 case0 跑通（已完成）。
-- [ ] 扩展本地测试：改造 `scripts/gen_data.py` + `main.asc` 为多 shape 循环（覆盖：B∈{1,4,64}、M/N/K 小/大、四种 transpose 组合、M/N 非 16 对齐尾块、小 K），每 shape 计时（取中位数），全量精度校验。
-- [ ] `msprof` 采集基线：Task Duration、Cube/Vector/MTE 利用率，验证 26 GB 搬运放大假设。
-- [ ] 记录基线分数映射（本地计时 → 裁判机分数），后续每阶段对比。
+提交版本：git 289f143（26/26 本地回归通过，含 4 转置组合/尾块/bf16/B=64/多核 batch 正确性）。
 
-### Stage 1 — 主循环重构为单作业 Iterate（正确性优先，收益 ~2.8×）
+## 后续可选方向（如继续）
 
-- 去掉手写 mTile×nShard 双层循环：每个 (core, batch) 只做一次 `SetTensorA/B` + `SetSingleShape(m,n,k)` + `SetFixSplit(baseM, baseN, -1)`，`Iterate` 内自动遍历全部 tile，`GetTensorC` 逐个拿。
-- 保守参数 baseM=64 / baseN=128 / FIRSTM（M 内层 → B 块留 L1 复用），GM 暂存 C tile（单缓冲）+ 现有归约逻辑不动，保证只改结构不改语义。
-- 门禁：15 用例精度全过 + 本地计时对比。
-
-### Stage 2 — 搬运量优化：baseN↑ + traverse 启发式（收益 ~3×）
-
-- baseN 128→256/512；traverse 按 M/baseM 与 N/baseN 谁小选谁：M·baseN < N·baseM 时 FIRSTN，否则 FIRSTM。
-- host 侧按 (m,n,k,B) 选 baseM∈{64,128}、baseN∈{128,256,512}（受 UB 192KB / L0C 256KB 约束），代表性 shape 小网格实测。
-- 现场验证：SetFixSplit 的 baseN 上限、FIRSTM/FIRSTN 遍历语义（读 matmul_intf.h + msprof 实测）。
-
-### Stage 3 — 流水化：队列 + 定向 barrier（对应"合理 API""32B 对齐"）
-
-- C tile GM ping-pong + `TQue<VECIN,2>` 双缓冲，cube 算 tile i+1 时 vector 归约 tile i。
-- 删除全部 `PIPE_ALL`（红线 B3），换 EnQue/DeQue + 定向 barrier。
-- 尾块 `DataCopyPad`（行宽补 32B，pad -inf），消除 `SetValue` 标量循环。
-- 实验：若 matmul_intf 支持 C 直写 UB（VECOUT），对比 "C-in-UB (baseN=256)" vs "GM 暂存 (baseN=512)" 实测 MTE，取优。
-
-### Stage 4 — 小 Batch 多核切分 + 归约（B=1 类用例，收益最大）
-
-- grid = batch × coresPerBatch（coresPerBatch = min(coreCount/batch, mTiles)），每核一个连续 M 段（按 mTiles 均分，负载均衡）。
-- 每核归约自己 M 段 → partial，`AtomicAdd(y[b])`；host launch 前 `aclrtMemsetAsync(y, B*4, 0, stream)`；coresPerBatch==1 直接写 y（无需 memset/原子）。
-- 验证 910B 上 float32 AtomicAdd 可用；否则备选 "partial 写 workspace + 二段小 kernel 归约"。
-
-### Stage 5 — 多模板 tilingKey + 细节 + host 开销（对应"多模板""减少 scalar"）
-
-- tilingKey 按 shape 分发：① 极小 shape（单 tile）→ 最简路径；② M 小（mTiles=1）→ 单核 FIRSTN；③ 大 shape → M 切分多核。transpose 组合用运行时参数（SetTensorA transpose 已覆盖）。
-- scalar→vector：补尾 Duplicate 向量清零；`GetValue(0)` 累加改 UB 向量累加、最后一次性 ReduceSum。
-- host：workspace/tiling 静态 device buffer 跨调用复用（不够再扩），命中缓存时跳过 malloc/free 与 `aclrtSynchronizeStream`；只缓存 workspace 绝不缓存结果（红线 A5）。
-
-### Stage 6 — 终验与提交
-
-- 全量自测 + msprof 终版报告（Cube/Vector/MTE 利用率、Task Duration）。
-- 对照得分公式预估排名，提交；若与最优仍有差距，回到 Stage 2/3 做第二轮网格微调。
-
-## 精度风险控制
-
-- 全程保持 fp32 cube 累加与 fp32 归约不动（当前精度已过，改动不涉及数值路径）。
-- Max 归约与求和顺序变化在 1e-4 容差内安全；每阶段先全量跑精度再测速。
-- 每次提交前用 `scripts/verify_result.py` 全量校验 + 本地多 shape 自测。
-
-## 预估收益
-
-- Stage 1~2：最大 case 的 MTE 从 ~26 GB 降到 ~2.8 GB（约 9×）。
-- Stage 4：解决 B=1 单核问题。
-- 叠加流水重叠后预计整体进入 t/T ≈ 2 以内（60 分+），Stage 5 模板细化与 msprof 微调继续逼近最优。
-
-## 与用户调优手段的对应
-
-| 用户手段 | 落点 |
-| --- | --- |
-| 运算步骤少 | Stage 1 单作业 Iterate；Stage 5 单 tile 最简模板 |
-| 减少多余 scalar 操作 | Stage 3 去 SetValue 循环；Stage 5 GetValue 累加改向量 |
-| 选择合理 API | Stage 3 队列/定向 barrier 替代 PIPE_ALL；DataCopyPad |
-| 数据对齐 32B | Stage 3 DataCopyPad 行宽补 32B |
-| 多模板 + tilingKey | Stage 5 tilingKey 分发三类模板 |
-| 大 shape 暂存 UB 还是 GM | Stage 3 C-in-UB vs GM 暂存实测决策 |
-
-## 执行方式说明
-
-- 本文件当前写入 `/home/developer/.opencode/plan/PLAN.md`（Plan mode 不允许写仓库）。
-- 切换到实施模式后，第一步将本文件复制到仓库根 `PLAN.md`，并按 git-version-management skill 每阶段 checkpoint 提交。
+1. Stage 4 再探：C workspace 地址敏感性根因（怀疑与 HBM 页/缓存行映射相关），
+   固定大缓冲首调分配 + 全 case 顺序归一化后再测 M 切分。
+2. C 直写 L1（C_TYPE pos=A1）+ GetTensorC 增量归约，消除 C 的 GM 往返。
+3. bf16 专属 baseN/baseK 调优。
