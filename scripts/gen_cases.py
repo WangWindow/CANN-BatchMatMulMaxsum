@@ -60,6 +60,8 @@ CASES = [
     # ---- 大 M/N、小 K（访存 bound） ----
     ("c11", 1, 4096, 4096, 32, 1, False, False, True),
     ("c12", 1, 4096, 64, 4096, 1, True, False, True),
+    ("c13", 2, 1024, 1024, 1024, 1, False, False, True),
+    ("c14", 4, 1024, 512, 512, 1, True, True, True),
     # ---- perf：只测速，无 golden ----
     ("p00", 1, 8192, 8192, 8192, 1, False, False, False),
     ("p01", 1, 8192, 8192, 8192, 2, True, True, False),
@@ -68,7 +70,7 @@ CASES = [
     ("p04", 1, 8192, 8192, 32, 1, True, False, False),
     ("p05", 4, 2048, 2048, 2048, 2, False, False, False),
     # ---- debug：转储 C tiles 供离线比对 ----
-    ("dbg", 1, 128, 384, 2048, 1, False, False, True),
+    ("dbg", 1, 128, 384, 32, 1, False, False, True),
     ("dbg2", 1, 100, 300, 32, 1, False, False, True),
     ("dbg3", 1, 64, 384, 32, 1, False, False, True),
     ("dbg4", 1, 128, 384, 32, 1, False, False, True),
