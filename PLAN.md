@@ -55,6 +55,37 @@
 
 提交版本：git 289f143（26/26 本地回归通过，含 4 转置组合/尾块/bf16/B=64/多核 batch 正确性）。
 
+## raw-cube 直调重写 — 第二阶段进展（branch raw-cube-wip, commit 1e7c3e7）
+
+### 已突破（可复用的关键知识）
+1. **`__mix__(1, 2)` 内核类型属性**（bisheng 编译器 `core_ratio` 属性）：裸 split-core
+   内核（`if ASCEND_IS_AIC {...} else {...}`）必须显式声明，否则自动推导失败 →
+   链接报错 + 静默运行旧二进制（排查陷阱！）。
+2. **AIC↔AIV 握手协议**（与 KFC 完全一致，已验证可靠）：
+   - 初始化：AIC `NotifyEvent<PIPE_MTE3>(15)`；AIV `WaitEvent(15)`（WORKSPACE_SYNC_ID=15）
+   - per-tile：通知 `NotifyEvent<PIPE_FIX>(1)` / 等待 `WaitEvent<PIPE_MTE2>(1)`；
+     回压 `NotifyEvent<PIPE_V>(2)` / `WaitEvent<PIPE_S>(2)`（mode-2 一路可靠）
+   - 子核：1 AIC : 2 AIV，AIV 侧 `GetSubBlockIdxImpl()==0` 才参与计算
+3. **Fixpipe 的 unitFlag 必须为 0**；=3 会等待配套的 Mmad unit-flag 协议而死等。
+4. **裸 Mmad 流水结构**（全部公开 API）：`DataCopy(GM→L1, Nd2NzParams)` →
+   `LoadData(L1→L0A/L0B, LoadData2dParams)` → `Mmad(l0c, l0a, l0b, MmadParams(m,n,k,
+   unitFlag=2, cmatrixSource=false, cmatrixInitVal=首块true))` → `Fixpipe(L0C→GM,
+   unitFlag=0)` → AIV `ReduceMax` 归约 → 软件求和。
+5. TPosition 池：A1/B1 = L1，A2/B2 = L0A/L0B，CO1 = L0C，均可经 TPipe InitBuffer。
+
+### 遗留阻塞（下一步的精确任务）
+**A/B 数据经 `nd2nz → L1 → LoadData → L0` 后 Mmad 读到错乱数据。**
+- 判别实验：A=唯一索引矩阵、B=全 1 时，C 的每行应恒等于 A 行和（1024m+496），
+  实测行内不恒定 → L1B 内容非预期。
+- 已核对与 tbe `transpose_batch_mat_mul` 参考实现的参数逐项一致
+  （该参考用的正是公开 LoadData/DataCopy API），怀疑点收窄到：
+  (a) `Nd2NzParams.dstNzC0Stride/dstNzNStride` 的真实单位语义
+  (b) `LoadData2dParams.srcStride` 的分形单位（512B vs 16 元素）
+  (c) `LoadData2dParamsV2`（mStartPosition/kStartPosition 按分形索引）可能是 2201 的推荐版本
+- **下一步排查工具**：给裸内核加 `SetSysWorkspace`（DumpTensor 依赖它）后用
+  `DumpTensor` 直接打印 L1 内容到 plog；或写最小探针内核做 (dstNzC0Stride,
+  dstNzNStride, srcStride) 参数扫描对齐身份矩阵。
+
 ## 后续可选方向（如继续）
 
 1. Stage 4 再探：C workspace 地址敏感性根因（怀疑与 HBM 页/缓存行映射相关），
