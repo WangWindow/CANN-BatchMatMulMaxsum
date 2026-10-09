@@ -109,21 +109,31 @@
 8. **事件 ID 分工**（挂起角色独立 ID）：MTE1_MTE2=0/1；M_MTE1=2；
    FIX_M=7；自含对共用 MTE2_MTE1=4、MTE1_M=5、M_FIX=6。
 
-### 当前实测状态（逐用例独立进程）
-- **通过**：c00-c05（含奇数形状/四种转置/双 batch 双 block）、c07、c08、c09、c12、c13、
-  p00-p03、p05、全部 dbg —— 数值精确（diff≤6e-05）。
-- **挂起**：c06、c10、c11、c14、p04（tile 数较多的 K=32/64 单 chunk 场景）。
-- 诊断：挂起点在 ~第 7-8 个 tile；dbg 流程单发射可复现 507015（AI 核异常，地址布局相关）。
-- **根因假设（高置信）**：同一 ffts 通知 flag 被反复 `NotifyEvent(mode 2)`，其硬件计数器
-  在第 7-8 次 set 后溢出 → 异常。KFC 的解法是 4-flag ping-pong
-  （C_NOTIFY_V/V_NOTIFY_C + cvPingPongFlag 交替）**加上客户端回执**约束超前量。
+### 当前实测状态（关键修正！exit=0 ≠ 数值正确）
+- **数值精确通过（金标验证）**：c00-c05（含奇数形状 / 四种转置 / 双 batch 双 block）。
+- **>8 tile 的用例全部数值错误**（如 c08 2048³ diff=1e5；c07 41/64 批次错）并伴有：
+  - 部分场景挂起（c06/c11/c14/p04，~第 8 个 tile 起）；
+  - 部分场景 507015（AI 核异常，地址布局相关，偶发）。
+- **结论：存在的唯一核心阻塞 = AIC↔AIV 的 tile 流同步**。
+  - 现象：约前 6-8 个 tile 正确；之后同步崩溃（表现为数据错乱/停滞/异常）。
+  - 机制（高置信）：AIC 单向 `NotifyEvent(mode2, flag1)` 洪泛 + 无背压 →
+    低频 ffts 邮箱/标志计数器溢出（深度约 8）。
+  - 已验证可用的部分：ND2NZ 布局、四种转置加载、L0 流水、Mmad、Fixpipe、
+    AIV 归约（mask+reduce）、事件对（MTE2_MTE1/MTE1_M/MTE1_MTE2/M_MTE1/M_FIX/FIX_M）。
+  - 已验证失败的尝试：mode-4 配对（挂）、flag 交替 1+ping（挂）、
+    AIV→AIC 回执 NotifyEvent(mode2, flag2)（死锁）、PIPE_ALL 屏障（死锁）、
+    AIC 标量自旋减速（无效）、`sb==blockIdx` 过滤（仅 2 块成立，8 块误杀）。
 
 ### 下一步（精确任务，优先级排序）
-1. **ffts flag 语义**：读 `kernel_operator_sync_impl.h` 中 `wait_flag_dev`/`ffts_cross_core_sync`
-   注释，与 KFC 的 C_NOTIFY_V / V_NOTIFY_C 常量值（grep gemm_v3_base_kernel.h），
-   复刻"4-flag 交替 + 客户端回执"方案；先用 h4（2048x2048x32）验证 8+ tile 通过。
-2. **背压恢复**：AIC 每 tile 等待 AIV 的回执（需与 flag 方案配套，避免此前的死锁）。
-3. 全 26 用例回归 + 逐点核对判题比例，替换 main 提交。
+1. **读 ffts 语义**：`kernel_operator_sync_impl.h` 的 `wait_flag_dev`/`ffts_cross_core_sync` 注释；
+   grep `gemm_v3_base_kernel.h`/`mmad_*.h` 中 `C_NOTIFY_V`、`V_NOTIFY_C` 常量与
+   `INTRA_BLOCK_SYNC` 值，逐字复刻 KFC 的"服务端通知 + 客户端回执"完整协议
+   （含双向 mode 与 flag 编号）。
+2. **首选参考**：`matmul_server_aux.h:304`（服务端等客户端）+ `:485`（服务端通知客户端）+
+   客户端侧 `CrossCoreSetFlag<INTRA_MODE, PIPE_V>`（客户端回执方向）——
+   三处一起对照实现双向握手，先用 h4（2048x2048x32）验证 >16 tile 正确。
+3. **背压**：AIC 在复用 C 槽前必须等到 AIV 对该槽的读取完成（回执）。
+4. 全 26 用例金标回归（注意 exit=0 不等于数值对！必须逐点跑 verify）+ 替换 main 提交。
 
 ## 后续可选方向（如继续）
 
