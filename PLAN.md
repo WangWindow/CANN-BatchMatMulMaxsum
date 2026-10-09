@@ -124,6 +124,22 @@
     AIV→AIC 回执 NotifyEvent(mode2, flag2)（死锁）、PIPE_ALL 屏障（死锁）、
     AIC 标量自旋减速（无效）、`sb==blockIdx` 过滤（仅 2 块成立，8 块误杀）。
 
+### 第四轮 probing 新增的确凿知识（2026-10-09 晚）
+1. **AIV→AIC ffts 方向已验证可用**（此前一直误判不通）：
+   - AIV 发：`CrossCoreSetFlag<2, PIPE_MTE2>(flagId)`（mode 2 + PIPE_MTE2）
+   - AIC 等：`CrossCoreWaitFlag<0, PIPE_S>(flagId)`（**必须用默认模板 <0, PIPE_S>**；等待端
+     的 mode 被忽略，但 pipe 决定阻塞位置——用 PIPE_FIX 会挂）
+   - 最小探针（AIV 起点发 flag7 / AIC 起点等 flag7）实测通过。
+2. **ffts 标志是电平语义（幂等置位）**：同一 flag 连续两次 Wait 会死锁（第二次无新置位）；
+   "多次置位=一次"。
+3. **gemm_v3 的精确常量**：`C_NOTIFY_V=0`、`V_NOTIFY_C=2`（两对 flag 随槽位 ping 交替
+   {0,1}/{2,3}）；`INTRA_BLOCK_SYNC=2`（mode）；置位用 PIPE_FIX（C 向）/PIPE_MTE2（V 向）；
+   等待用默认 <0, PIPE_S>；第一轮无需预置（源码中无 pre-set，电平初值=可用）。
+4. **本轮尝试失败的组合（重要线索）**：把完整 4-flag 双向方案套进现内核后，
+   单 tile/单块（c01）过，但 6 tile 起首发射即挂（≤6 tile 的简单单 flag 方案反而全对）。
+   → 说明失败点随 tile 数从 ">8" 前移到 ">=2"，即**双向交换本身引入了一个顺序/相位问题**，
+   尚差最后一步定位（下一步首选：用小规模 dump/marker 定位新方案在第 1→2 tile 的相位）。
+
 ### 下一步（精确任务，优先级排序）
 1. **读 ffts 语义**：`kernel_operator_sync_impl.h` 的 `wait_flag_dev`/`ffts_cross_core_sync` 注释；
    grep `gemm_v3_base_kernel.h`/`mmad_*.h` 中 `C_NOTIFY_V`、`V_NOTIFY_C` 常量与
