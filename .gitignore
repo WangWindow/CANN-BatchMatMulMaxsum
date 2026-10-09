@@ -2,3 +2,8 @@
 build
 .arts
 __pycache__
+
+input
+output
+
+*.csv

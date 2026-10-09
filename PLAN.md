@@ -86,6 +86,45 @@
   `DumpTensor` 直接打印 L1 内容到 plog；或写最小探针内核做 (dstNzC0Stride,
   dstNzNStride, srcStride) 参数扫描对齐身份矩阵。
 
+## raw-cube 第三阶段（2026-10-09 会话）：正确性打通 + 剩余阻塞
+
+### 本会话重大突破（全部已验证）
+1. **ND2NZ 真实布局实测确定**（S1 探针实验）：
+   `out[d1*(dstNzC0Stride*16) + n1*256 + n0*16 + d0] = src[n1*16+n0, d1*16+d0]`
+   其中源矩阵 (nValue 行 × dValue 列)；d 块间距由 dstNzC0Stride 参数控制。
+2. **分形 = 16x16 fp16 = 256 元素（512B）** —— 此前把 512 *元素* 当步长（差 2 倍），
+   是所有数据错乱的根源。L0A/L0B 的 LoadData 源步长必须按 256 元素/分形计。
+3. **数据搬运通路全部实测验证**：L1 平拷贝（blockLen 单位=32B）、L1↔GM 双向、
+   `SetFlag/WaitFlag` 事件、LoadData+Mmad+Fixpipe 全链路（c01-c05 全过，含四种转置）。
+4. **转置加载路径（已验证）**：
+   - tx2 B：L1[k块][n块] → `LoadData(l0b[i*nFrag*256], bHalfBuf[i*kNTask*16], params(0,nFrag,1,0,0,false,0))`
+   - tx1 A：L1[m块][k块] → `LoadData(l0a[i*kFrag*256], aHalfBuf[i*kRound*16], params(0,kFrag,1,0,0,true,0))`
+5. **AIV 归约修复**：C 块行距恒为 kNTask；部分 N 分片需掩蔽无效列
+   （矢量 Duplicate 起点必须 32B 对齐；不足 8 元素的尾部用标量 SetValue 补齐——
+   未对齐 Duplicate 会导致 16ms 级矢量异常！）。
+6. **多核 AIV 子核选择**：`GetSubBlockIdxImpl()` 在 AIV 上返回 = blockIdx（核索引），
+   不是 AIV 对内编号；当前用"不过滤"（两 AIV 冗余执行，幂等）。
+7. **ND2NZ 越界读防护**：所有 nd2nz 的 nValue/dValue 必须钳制到实际范围
+   （越界到未映射页会导致任务卡死/异常）。
+8. **事件 ID 分工**（挂起角色独立 ID）：MTE1_MTE2=0/1；M_MTE1=2；
+   FIX_M=7；自含对共用 MTE2_MTE1=4、MTE1_M=5、M_FIX=6。
+
+### 当前实测状态（逐用例独立进程）
+- **通过**：c00-c05（含奇数形状/四种转置/双 batch 双 block）、c07、c08、c09、c12、c13、
+  p00-p03、p05、全部 dbg —— 数值精确（diff≤6e-05）。
+- **挂起**：c06、c10、c11、c14、p04（tile 数较多的 K=32/64 单 chunk 场景）。
+- 诊断：挂起点在 ~第 7-8 个 tile；dbg 流程单发射可复现 507015（AI 核异常，地址布局相关）。
+- **根因假设（高置信）**：同一 ffts 通知 flag 被反复 `NotifyEvent(mode 2)`，其硬件计数器
+  在第 7-8 次 set 后溢出 → 异常。KFC 的解法是 4-flag ping-pong
+  （C_NOTIFY_V/V_NOTIFY_C + cvPingPongFlag 交替）**加上客户端回执**约束超前量。
+
+### 下一步（精确任务，优先级排序）
+1. **ffts flag 语义**：读 `kernel_operator_sync_impl.h` 中 `wait_flag_dev`/`ffts_cross_core_sync`
+   注释，与 KFC 的 C_NOTIFY_V / V_NOTIFY_C 常量值（grep gemm_v3_base_kernel.h），
+   复刻"4-flag 交替 + 客户端回执"方案；先用 h4（2048x2048x32）验证 8+ tile 通过。
+2. **背压恢复**：AIC 每 tile 等待 AIV 的回执（需与 flag 方案配套，避免此前的死锁）。
+3. 全 26 用例回归 + 逐点核对判题比例，替换 main 提交。
+
 ## 后续可选方向（如继续）
 
 1. Stage 4 再探：C workspace 地址敏感性根因（怀疑与 HBM 页/缓存行映射相关），
