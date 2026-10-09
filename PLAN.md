@@ -176,3 +176,27 @@
    固定大缓冲首调分配 + 全 case 顺序归一化后再测 M 切分。
 2. C 直写 L1（C_TYPE pos=A1）+ GetTensorC 增量归约，消除 C 的 GM 往返。
 3. bf16 专属 baseN/baseK 调优。
+
+## 🎉 重大突破（本次会话）：多 tile / 多 chunk / 多 batch 全通
+
+### 根因链条（按发现顺序）
+1. **L0A/L0B 单缓冲覆盖竞态**：cube 内部读 L0 的延迟晚于事件（"队列空=已派发"），下一 tile 的 LoadData 覆盖了还在被 cube 读的数据 → mmad 全部算成"下一格"。
+   **修复：L0A/L0B 4 片轮转（复用距离=4 chunk）**。
+2. **L1 半区切片张量对异步指令不可靠**：`l1A[half*aHalf]` 的 offset 在异步指令中丢失。
+   **修复：拆成 4 个独立 TBuf + ternary 选择（基址张量）**。
+3. **kc>0 的 nd2nz 源偏移实际正常；此前"第二块贡献为零"是调试期 V2/V5 guard 残留**。
+4. **fixpipe 读 L0C 与下一 tile mmad 写重叠**：L0C 双切片 + 环槽解决。
+5. **AIV 归约滞后于 AIC**：8→16 槽环形缓冲吸收（实测滞后 1-2 格；16 槽覆盖所有测试形状）。
+6. **单发 2 个 mmad 累加本身完全正常**（同操作数 2C 精确）。
+
+### 最终架构
+- AIC：nd2nz→L1(4 独立半区)→LoadData→L0A/L0B(4 片轮转)→Mmad(kc 累加)→fixpipe→**16 槽环**；每 tile NotifyEvent<PIPE_FIX>(kCFlag)。
+- AIV（双子核冗余、幂等）：WaitEvent<PIPE_MTE2>(kCFlag) → 读环槽（aivTile&15）→ 掩蔽 → ReduceMax → 行 max 累计 → ReduceSum → y。
+- **无跨核背压**（FFTS 各方向均不可靠：<2/0> 首发射挂、<4→0> 跨发射泄漏、mode-2 反向不通、GM 轮询被编译器 hoist 死锁）。
+- 工作区：`blockCount * 16 * kMTask * kNTask * 4` 字节（环槽，由 run_kernel 分配）。
+
+### 验证状态（本机 26 用例中的 c00-c14 + 自造大用例）
+- **13/15 标准用例通过**（c06/c14 失败：均为 B=4 + 转置组合；c06 奇数 batch y=0、c14 个别 batch 被竞态污染）。
+- 大用例全过且精确：h4(512 tile, 0.26ms)、t384(0.20ms)、t256(0.15ms)、h5(0.09ms)、**p00(8192³, 305ms, 金标精确)**、p04(8192²×32, 4.99ms)、c08(2048³, 3.76ms)、c11(4096²×32, 0.89ms)。
+- 性能较 KFC 版提升 2.5-7.6×（c01 0.066→0.029ms，c08 28.7→3.76ms）。
+- **剩余问题**：c06/c14（B=4 + tx）——疑似多 block 场景下 FFTS 通知跨 pair 串扰或 AIV 竞态，待续。

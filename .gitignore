@@ -7,3 +7,5 @@ input
 output
 
 *.csv
+scripts/npu_reset
+scripts/npu_reset.cpp
