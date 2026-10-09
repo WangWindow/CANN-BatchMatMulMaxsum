@@ -125,6 +125,25 @@
     AIC 标量自旋减速（无效）、`sb==blockIdx` 过滤（仅 2 块成立，8 块误杀）。
 
 ### 第四轮 probing 新增的确凿知识（2026-10-09 晚）
+#### ⚠️ 测试协议教训（最重要！！）
+**FFTS 标志与硬事件跨发射持久**：任何提前 return 的测试路径若不消费内核的预置硬事件
+（M_MTE1(2)/MTE1_MTE2(0,1)/FIX_M(7)）与 FFTS 消息，会导致后续发射相位漂移，
+表现为"同一代码先通过、后连续挂起"——本轮 A2-A4 的二分结论（"TBuf/DataCopy 破坏握手"）
+**全部因此失效**。今后任何内核级测试必须：
+1. 每条测试路径都消费全部预置事件（或全程无预置）；
+2. 每个配置在**独立进程**中运行，且同一进程内重复 ≥3 次验证确定性；
+3. 判定"通过"必须同时满足：进程退出码 0 + 数值金标（如适用）+ 重复运行稳定。
+#### ffts 协议确凿结论（保留）
+1. AIV→AIC 方向可用：`CrossCoreSetFlag<2, PIPE_MTE2>` + `CrossCoreWaitFlag<0, PIPE_S>`。
+2. 电平语义（幂等置位）：同一 flag 连续两次 Wait 会死锁。
+3. gemm_v3 精确常量：C_NOTIFY_V=0 / V_NOTIFY_C=2；INTRA_BLOCK_SYNC=2；置位
+   PIPE_FIX（C 向）/PIPE_MTE2（V 向）；等待默认 <0,PIPE_S>；flag 随槽位 ping 交替 {0,1}/{2,3}。
+4. 纯握手 ping-pong（20 轮、无 cleanup）**首次运行通过**（后因污染漂移）——消息层本身可用，
+   关键在"每轮严格配对、全程清理"。
+5. AIC 的 `NotifyEvent<PIPE_FIX>` 洪泛 + 单 flag 是 >8 tile 失败的最可能来源；
+   要么实现严格双向配对（带 cleanup），要么改用多 flag 交替 + 多槽环（kCSlots=8 已实现过一次，
+   单独使用时 h4 仍挂——需与清理协议一起验证）。
+
 1. **AIV→AIC ffts 方向已验证可用**（此前一直误判不通）：
    - AIV 发：`CrossCoreSetFlag<2, PIPE_MTE2>(flagId)`（mode 2 + PIPE_MTE2）
    - AIC 等：`CrossCoreWaitFlag<0, PIPE_S>(flagId)`（**必须用默认模板 <0, PIPE_S>**；等待端
