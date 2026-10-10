@@ -256,3 +256,22 @@
 - 矩阵：`python3 ../scripts/gen_matrix.py`、`gen_matrix2.py`、`run_matrix.py <cases> --batch 24`。
 - 设备复位：`scripts/npu_reset`（改设备状态后先复位；注意 LD_LIBRARY_PATH）。
 - 提交产物 = `kernel.asc`（HEAD 52c82d0+）；`main.asc` 为本地测试框架（非提交物）。
+
+### K%16≠0 慢路径隔离数据（8192², fp16, 单位 ms）
+| (tx1,tx2) | K=32 | K=40 | 结论 |
+| --- | --- | --- | --- |
+| (0,0) | 3.48 | 8.94 | A 非转置 nd2nz 慢 |
+| (0,1) | 3.42 | 17.24 | A 非 + B 转置 双慢 |
+| (1,0) | 4.89 | 6.73 | 两条 nd2nz 都对（d=M/N 对齐）→ 仅核内残余 +1.84ms |
+| (1,1) | 3.49 | 13.86 | B 转置 nd2nz 慢（+7.1ms） |
+
+触发条件 = nd2nz 源行步长（k*2 字节）非 32B 倍数；dValue 16 对齐填充无效（实测更慢）。
+注意：即使完美重排，仍有 ~+1.8ms 的核内残余（mmad 的 k 非 16 倍数）。
+
+### 下轮候选：K 预重排（未实施）
+- `run_kernel` 在 `k%16!=0` 时分配 x1p/x2p（行步长 RoundUp(k,16)），用轻量 AIV pad kernel
+  以 DataCopyPad 按字节搬运；pad kernel 与主 kernel 同流顺序执行（天然同步，无需额外 flag）。
+- 主 kernel 新增 kStride 参数：4 条 nd2nz 的 srcDValue 与所有源地址的批/行步长改用它。
+- 风险/上限：pad 缓冲在小 k 时最大 ~2x 输入（需加尺寸门槛）；收益仅限 k%16!=0 性能。
+- 前置实验（安全版）：用真实 pad 缓冲跑 K=40 验证"对齐步长=快路径"（不要再用错位步长探针，
+  已实测其会以 1KB 级越界读崩溃）。
