@@ -451,3 +451,18 @@ P1（最小测试点）执行路径上，屏障批与实证版的差异仅剩：
   （nShards=8）⇒ 价值上修至 **-20~28%**（多 nShard 形状）。B 无块内冗余，优化上限 ~23%（需跨块复用）。
 - 注记：本实验期间的 S13a3 soak 中后段用例与消融二进制竞争（nsd3 起可疑）⇒ **提交前须对最终版重跑完整 soak**。
 - 下一步：直接实施 A2（A-Full-Load）；NC（Fixpipe）/NR（AIV 归约）消融可在 A2 之后按需补做。
+
+# A2（A-Full-Load）实施设计冻结（含 E1 证据，待下一轮施工）
+- 目标：消除块内 A 重复读（每 (b,mTile) 的 nShard 循环重读 A 全 K 片，kscan 形状 8×）。
+- 设计要点（纯 AIC 改动 + 零新增内核参数；宿主不动）：
+  1. L1 新增驻留区：`pipe.InitBuffer(l1AResBuf, kResKMax * kMTask * sizeof(InputT))`，kResKMax=1024
+     （256KB；L1 总占用 ~320KB/512KB）；每 chunk 槽位几何 = 原半区同构（kc*kKChunk*kMTask 偏移）。
+  2. 门控：`aResMode = (kChunks <= kResKMax/kKChunk)`（K<=1024）；否则走现有半区路径（双路并存）。
+  3. 逐 tile 滚动释放：每 tile 末尾 `SetFlag<MTE1_MTE2>(9)`、下一 tile 开头 `WaitFlag<MTE1_MTE2>(9)`
+     （预置 1 个）；保证换 item 重填时旧片 MTE1 已全部读完。
+  4. item 变更检测（(b,mTileId) 变化）→ 重填：kChunks 次 nd2nz 填入驻留区 → 自屏障
+     `SetFlag<MTE2_MTE1>(10); WaitFlag<MTE2_MTE1>(10);`（每 item 一次，摊薄）。
+  5. kc 循环：aResMode 时跳过 A nd2nz；L0A LoadData 源改为 `l1AResBuf[kc*kKChunk*kMTask]` + 同 S13a1 索引。
+- 预期（E1 证据）：多 nShard 形状 -20~28%（k2048：307→~220µs）；验证顺序 kscan → tx → nsd/ns → 全量回归
+  （**含重跑完整 soak**，此前 soak 中后段受消融二进制竞争污染）。
+- 回退点：aed32b9（S13a1）。风险：重填自屏障的摊薄（T 小的形状收益弱）；L1 预算边界。
