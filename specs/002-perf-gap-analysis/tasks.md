@@ -114,7 +114,7 @@
 
 ## Phase 8: Phase D 数据流/分片深化（2026-10-14 追加）
 
-- [ ] D0 E1-NR2 消融（脚本已备 `scripts/abl/abl_nr2.py`）：跳过 AIV 环读+归约，量 AIV 侧占比，定 D1 优先级
+- [X] D0 E1-NR2 消融（✅ 2026-10-14：AIV 侧仅 9-15µs ⇒ D1 降权 5-9%；D2/D4 保持最高优先）
 - [ ] D1 AIV 双子核按 item 奇偶分工（消灭 2× C 读；ack 记账重核）——前置 D0 数据
 - [ ] D2 SWAT Serpentine 遍历（跨块 B 复用，WINDOW_LEN=4）
 - [ ] D3 C 环瘦身 8/16 槽 A/B（一行级）；fp16 环列为高风险实验（容差判定）
