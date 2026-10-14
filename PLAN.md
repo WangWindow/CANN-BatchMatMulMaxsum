@@ -412,3 +412,14 @@ P1（最小测试点）执行路径上，屏障批与实证版的差异仅剩：
   3. per-tile 固定开销（~260ns/tile × 256 tile ≈ 66µs）——大 K 多 tile 形状的次要杠杆。
 - 纪律：先读官方 L1→L0/nd2nz 最佳实践（ascendc 文档技能）再改码；本地 A/B 用 kscan+tx+disc 三套；
   全量回归（宪法 v1.1.0 门槛）后才提交判题。回退点：47dc041 (S9) / baa7ec7 (S12f, 判题 27.21)。
+
+# S13-A1（2026-10-14）— kernel.asc md5 0ee35589ff55d9d56ca50e8a01c07161, commit aed32b9
+- 内容：AIC 的 tx1=false 分支 L0A 装载顺序化：4 次 LoadData(repeat=mFrag, srcStride=1, dstGap=kFrag-1)
+  替代原先 8 次 (repeat=kFrag, srcStride=mFrag) 跨步收集；落位与 [m1][k1] 分形布局逐位一致。
+  dstGap 语义经值校验实锤（此前文件内无先例，本次建立先例）。
+- 收益实测 (4,1024,1024,K)：K=256→0.116ms(-7.2%) / 512→0.138(-8.6%) / 1024→0.184(-10.7%) / 2048→0.282(-7.2%)。
+- **B 侧同构重组实测变差**（k1024 0.198 vs 0.184，tx10/tx11 同步变差）⇒ 已回退保留原跨步形式；
+  结论沉淀：B 侧（transpose=true 路径）大 repeat 优于多小 repeat。
+- 正确性：seq15/nsd/ns/s12pts/t1 全绿；244 矩阵 + 核数变体(4/32) + soak(30×7) 后台回归中。
+- 下一候选：① tx1=true 分支同类检查（当前 srcStride=1 已顺序，但仅 4 分形/次）；② P1/P2 微型点快速路径
+  （固定开销 ~8µs vs 榜首 1.2µs，比值 6.9×，为本表最大比值之一）；③ L1 驻留 A-slab（受 K≤1024 容量限）。
