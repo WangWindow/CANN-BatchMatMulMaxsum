@@ -1,35 +1,42 @@
-# Implementation Plan: 性能差距诊断与改进框架（对标榜首 5~10×）
+# Implementation Plan（更新版）: 性能差距诊断与改进框架（对标榜首 5~10×）
 
-**Branch**: `002-perf-gap-analysis` | **Date**: 2026-10-14 | **Spec**: [spec.md](spec.md)
+**Branch**: `002-perf-gap-analysis` | **Date**: 2026-10-14（第二轮更新） | **Spec**: [spec.md](spec.md)
 
-**Input**: Feature specification from `/specs/002-perf-gap-analysis/spec.md`
 
 ## Summary
 
-以判题实测（S9/S11 逐点数据）与本地可测指标为唯一依据，对"当前实现 vs 榜首 5~10×"做结构化归因，
-产出四类根因（计算单元空转 / C 数据 GM 往返 / N 轴并行触发缺失 / 固定开销）与
-按"收益×置信度÷成本风险"排序的改进框架，并落地首项行动（tileSplit 触发与经济性门解耦）。
-技术路径：复用既有单文件内核工程与验证门禁，不引入新框架。
+**交付进展**：US1（根因诊断）✅、US2（改进框架）✅、**US3（首项行动 = tileSplit 触发解耦）已判题实证达成**——S12f 提交 27.21 分（前值 25.70），P14 用时 87.6µs→30.28µs（10.7×→3.7×，SC-003 的 ≥2× 要求满足，且 15/15 保持）。
+
+本轮计划更新纳入**第二轮实测证据**与 **CANN 官方最佳实践（matmul 族）**：
+- 实测（本地）：K 扫描（斜率 0.1µs/K ≈ 84 TFLOPS ≈ 峰值 21%，截距 ~99µs）；判别实验（C 翻倍+K 减半反而更快 ⇒ **C 通路非瓶颈**）；tx 对比（装载路径敏感 ±20-40%）；核数缩放（5× 少核仅 2.5× 慢 ⇒ 斜率 ~70% 每核 + 30% 共享）；判题噪声 ±5% 实证（S13a1 同分）。
+- 官方知识（技能库）：`fullload`（小侧 L1 常驻，条件与 k1024 类形状逐条命中，-5~15%）；`streamk`（MN 欠并行 + 长 K 的切 K 方案）；`swat`（Serpentine 行窗口治 B 侧复用，可与 A_FULL_LOAD_MODE 叠加）；CATLASS 原则（**小型轮转 workspace（L2 驻留）+ 细粒度回调重叠**；"整块 C 的 HBM 往返是示例级实现，非性能最优"——我们的 32 槽 ×64KB×20 核 = 40MB 环待瘦身验证）。
+
+产出：**第二批次行动项 A2–A5**（见下文），按"收益 × 置信度 ÷ 成本风险"排序；已否证清单同步扩充。
 
 ## Technical Context
 
-**Language/Version**: AscendC 单文件内核（`kernel.asc`，CANN 9.0.0）
+**Language/Version**: AscendC 单文件内核（`kernel.asc`，CANN 9.0.0，dav_c220 / 910B，20 cube 核）
 
-**Primary Dependencies**: 既有构建/验证链路（main.asc 本地框架、scripts 门禁资产、判题平台）
+**Primary Dependencies**: 既有构建/验证链路（main.asc 本地框架、scripts 门禁资产、判题平台）；
+**新增设计来源**：CANN 官方优化知识库（技能 `ascendc-performance-best-practices` 的 matmul 族：pingpong/fullload/streamk/swat；`catlass-op-design`：workspace 与 DispatchPolicy 原则）
 
 **Storage**: N/A
 
-**Testing**: 全量回归（seq15 + 244 矩阵 + soak + 核数变体）为交付唯一前置（2026-10-14 澄清取消快门禁）+ 判题逐点数据
+**Testing**: 全量回归（seq15 + 244 矩阵 + soak + 核数变体）为交付唯一前置（宪法 v1.1.0 已取消快门禁）+ 判题逐点数据；
+本地实验资产：kscan/tx/disc/disc 用例集、`BMMS_CORE_OVERRIDE` 核数变体开关、nsd/ns/t1/c06/c07 对照集
 
 **Target Platform**: Ascend 910B（dav-2201，20 cube 核）
 
 **Project Type**: 单文件算子内核（提交物仅 `kernel.asc`）
 
-**Performance Goals**: 缩小 P14/P15 的 10.7×/6.7×（触发解耦后 ≥2× 改善）；为后续大点（P8–P12）明确 ≤2 条结构性主线
+**Performance Goals**（更新）:
+- P8–P12 大点：比值下降 ≥20%/项（A2 fullload 预期 -5~15%；A3 streamK 覆盖 MN 欠并行类；A4 swat 治重复读）
+- P1/P2 微型点：先零改动探针分解 8µs（NEEDS CLARIFICATION：判题侧形状未知），探明后定目标（潜在 8µs→3-4µs）
+- 噪声纪律：**单次判题提交须捆绑 ≥15-20% 量级变化**（判题噪声 ±5% 实证，微优化不可归因）
 
-**Constraints**: 15/15 零回归；一次一个可归因变化；不新增内核参数/内核；已否证方向不再投入；截止 10/17
+**Constraints**: 15/15 零回归；一次一个可归因变化集；**fullload 与 streamK 互斥**（官方约束）；已否证方向不再投入；回退点 aed32b9（S13a1, 27.21 实证）/ baa7ec7（S12f）；截止 10/17
 
-**Scale/Scope**: 诊断覆盖 15 点 4 个形状族；框架 ≤5 条方向；首项行动 = 触发阈值改造 + 标定（~1 行级代码 + 2–3 条本地对照用例）
+**Scale/Scope**: 行动项 A2–A5 各 ≤1 个内核级变化集 + ≤2 套本地对照；每项一轮内可判定有效/无效
 
 ## Constitution Check
 
@@ -37,11 +44,11 @@
 
 | 原则 | 检查点 | 结论 |
 |---|---|---|
-| I. 判题实证唯一真理 | 全部根因以判题逐点数据 + 本地 TFLOPS/流量为证据；领先者结构不可观测处明确标注为假设 | ✅ |
-| II. 本地验证门禁 | 首项行动交付前必须全量回归全绿（快门禁已取消，防子集漏检 c06/ns 级问题） | ✅ |
-| III. 最小步进与可回退 | 单一变化集；回退点 47dc041（S9，25.7 分） | ✅ |
-| IV. 正确性先于性能 | 15/15 为前置；收益按机制归因（触发缺失/空转/流量/固定开销） | ✅ |
-| V. 环境韧性与可追溯 | 版本标记；判题结果与诊断证据归档 PLAN.md | ✅ |
+| I. 判题实证唯一真理 | 全部结论以判题逐点数据（27.21 最新）+ 本地三口径（TFLOPS/流量/核数缩放）为证据；CAN N 官方文档作为机制依据（非臆测） | ✅ |
+| II. 本地验证门禁 | 每项行动交付前必须全量回归全绿（seq15 + 244 矩阵 + soak + 核数变体）；矩阵口径 = 失败集合与 S13a1 逐例一致 | ✅ |
+| III. 最小步进与可回退 | 每行动单一变化集；回退点 aed32b9 / baa7ec7 / 47dc041 三级 | ✅ |
+| IV. 正确性先于性能 | 15/15 为前置；收益按机制归因（装载路径/重复读/欠并行/固定开销） | ✅ |
+| V. 环境韧性与可追溯 | 版本标记 `[S13-xx]`；判题结果与实验证据归档 PLAN.md；技能库引用写入 research.md | ✅ |
 
 无违规 ⇒ Complexity Tracking 留空。**Post-Design Re-check**：设计产物未引入新违规，复检通过。
 
@@ -51,25 +58,86 @@
 
 ```text
 specs/002-perf-gap-analysis/
-├── plan.md              # 本文件
-├── spec.md              # 需求规格
-├── research.md          # Phase 0：根因量化与方向决策
-├── data-model.md        # Phase 1：差距族/根因/方向实体与度量口径
-├── quickstart.md        # Phase 1：诊断与首项行动的验证指南
+├── plan.md              # 本文件（本轮更新：+第二批次行动项 A2–A5）
+├── spec.md              # 需求规格（不变）
+├── research.md          # Phase 0（本轮更新：+R7–R12，含 CANN 技能依据）
+├── data-model.md        # Phase 1（本轮更新：新增实体与实例刷新）
+├── quickstart.md        # Phase 1（本轮更新：全量回归协议 v1.1.0 + 资产清单）
 ├── contracts/
-│   └── diagnosis-report.md  # 诊断报告与框架表的字段契约
+│   └── diagnosis-report.md  # 契约（行动项扩展至第二批）
 └── checklists/requirements.md
 ```
 
 ### Source Code (repository root)
 
 ```text
-kernel.asc    # 本特性仅动宿主触发判定（tileSplit 解耦）+ 阈值（首项行动）；AIC/AIV 机制沿用 S11
-build/        # ns 用例、smoke 清单、对照数据（不进 scripts/）
-PLAN.md       # 判题事实、诊断结论、方向进展的归档处
+kernel.asc    # 行动项 A2–A5 的唯一变更面（AIC 装载/调度 + 宿主触发）
+build/        # 本地资产：kscan_cases.txt / tx_cases.txt / disc_cases.txt / nsd_cases.txt /
+              #   ns_cases.txt / t_cases.txt / seq15.txt / matrix_all.txt / s12_pts.txt + 金标
+PLAN.md       # 判题事实、实验证据、方向进展的归档处（含 27.21 判题记录）
 ```
 
-**Structure Decision**: 沿用单文件内核工程；本特性以"数据+阈值"改动为主，结构性方向（②③）仅出方案不实施。
+**Structure Decision**: 沿用单文件内核工程；本轮全部行动项限于 `kernel.asc` 与本地资产，不引入新框架。
+
+## 第二批次行动项（A2–A5）
+
+> 契约字段齐全（机制假设 | 预期收益 | 置信度 | 成本 | 风险 | 验证方法 | 回退点 | 判题可验证性）；排序 = 收益×置信度÷成本风险。
+
+### A2 — A-Full-Load（小侧 A 矩阵 L1 常驻）【优先级 1】
+
+| 字段 | 内容 |
+|---|---|
+| 机制假设 | 消除 nShards 循环中对 A 的重复 GM→L1 搬运（MTE2 压缩 (T-1)/T，T=nShards）；官方文档条件逐条命中：A 侧 128×K×2B ≤ L1/2（K≤1024）、T≥2、喂数域为实测主瓶颈 |
+| 预期收益 | 受影响形状 -5~15%（官方实测 -7.5% 同构场景；本地 kscan K≤1024 子集可测） |
+| 置信度 | 高（官方配方 + 本地 tx/装载敏感证据） |
+| 成本 | 中（L1 布局改造 + A 侧事件模型：取消 pingpong 释放事件、仅首轮 MTE2、L0 按 kc 偏移切片） |
+| 风险 | L1 预算冲突（B pingpong 须保留）；K>1024 回退当前路径 |
+| 验证方法 | 本地：kscan(K≤1024)+tx A/B ≥5% 且正确性全绿 → 全量回归 → 判题捆绑提交 |
+| 回退点 | `git checkout aed32b9 -- kernel.asc` |
+| 判题可验证性 | 可（捆绑提交，看大点/触发点位移） |
+| 互斥约束 | 与 A3(streamK) 互斥（官方）；与 A4(swat A_FULL_LOAD_MODE) 可叠加 |
+
+### A3 — K 轴切分（streamK 化现有两阶段机器）【优先级 2】
+
+| 字段 | 内容 |
+|---|---|
+| 机制假设 | MN 欠并行（mCnt·nCnt < 核数）+ 长 K（≥2048）时，把空闲核拉去切 K；跨核归约复用 S12 的 workspace/计数/合成架构（归约语义从 MAX 扩为 MAX+ADD 两段） |
+| 预期收益 | 该类形状并行度提升至近核数倍（如 4 tile → ~20 核份） |
+| 置信度 | 中高（官方 streamK 场景与 P8/P15 类形状假设吻合） |
+| 成本 | 高（宿主触发 + AIC 段切分 + AIV 归约扩展） |
+| 风险 | 与 N 轴/M 轴切分的模式互斥管理复杂；尾段负载均衡 |
+| 验证方法 | 构造 (1,256,256,16384) 类用例 + 触发面回归（nsd/ns/t1/c06）+ 全量回归 |
+| 回退点 | `git checkout aed32b9 -- kernel.asc` |
+| 判题可验证性 | 可（针对欠并行点） |
+
+### A4 — SWAT Serpentine（B 侧窗口复用）【优先级 3】
+
+| 字段 | 内容 |
+|---|---|
+| 机制假设 | 4 行窗口（WINDOW_LEN=4）遍历使 B 片在窗口内复用，治输入重复读放大（实测 134MB vs 最小 17MB，@(4,1024,1024,1024)） |
+| 预期收益 | 大点的 L2 带宽压力下降；比例待实测（预测 -5~15%） |
+| 置信度 | 中（机制依据充分，但需与本内核的环/同步序兼容） |
+| 成本 | 中（仅改 AIC 的 flat 遍历序 + 宿主触发面） |
+| 风险 | 遍历序影响与 AIV 消费的耦合；需正确性全绿 |
+| 验证方法 | 本地 disc/kscan A/B + 全量回归 |
+| 回退点 | `git checkout aed32b9 -- kernel.asc` |
+| 备注 | 机制 B（尾块合并）/C（末轮二维再切分）留后续 |
+
+### A5 — 环瘦身（32 槽 → 8 槽）实验【优先级 3.5，成本最低】
+
+| 字段 | 内容 |
+|---|---|
+| 机制假设 | CATLASS 原则"小型轮转 workspace（L2 驻留）"；现环 32 槽×64KB×20 核=40MB 聚合远超 L2 友好工作集，可能在 L2 挤掉 A/B 片 |
+| 预期收益 | 未知（实验性）；代码注释本写"8 槽环"，疑为历史遗留未同步 |
+| 置信度 | 低-中（判别实验显示 C 通路有裕量，环大小未必是瓶颈） |
+| 成本 | 极低（一个常量 + 同步阈值联动） |
+| 风险 | 环过小导致 AIC 生产被 AIV 消费阻塞（背压加重） |
+| 验证方法 | 常量级 A/B（kscan/tx）+ 全量回归 |
+| 回退点 | 单行回改 |
+
+### 微型点探针（前置研究项，非行动项）
+
+零改动探针：分解 c00（1×1×1×32）8µs 构成（launch / 核内序言 / 同步往返）。探明后另行立项（潜在 A6：超轻路径，8µs→3-4µs，但判题形状未知 = NEEDS CLARIFICATION）。
 
 ## Complexity Tracking
 
