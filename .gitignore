@@ -9,3 +9,11 @@ output
 *.csv
 scripts/npu_reset
 scripts/npu_reset.cpp
+
+# S11
+*.o
+*.so
+*.a
+*.d
+*.log
+.DS_Store

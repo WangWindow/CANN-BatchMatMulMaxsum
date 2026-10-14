@@ -1,50 +1,67 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!-- Sync Impact Report
+Version change: [unfilled template] → 1.0.0（首次正式批准，模板占位全部落实）
+Modified principles: [PRINCIPLE_1..5_NAME/DESCRIPTION] → 五条具名原则
+  （判题实证唯一真理 / 本地验证门禁 / 最小步进与可回退 / 正确性先于性能并逐机制归因 / 环境韧性与可追溯）
+Added sections: 提交与协作约束；开发工作流
+Removed sections: 无
+Follow-up TODOs: 无（全部占位符已用仓库既有实践与判题实证填充）
+-->
+
+# CANN-BatchMatMulMaxsum 算子优化工程 Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. 判题实证唯一真理 (Judge-Evidence Ground Truth)（不可协商）
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+判题平台的结果是所有结论的唯一裁决依据；本地"全过"不构成判题通过的证据。
+- 每次提交 MUST 能解释为"相对上一判题版本的受控变化"，禁止探测式盲试；
+- 症状 MUST 归因到具体机制（形状/指令/时序/口径），禁止无机制的猜测性改动；
+- 判题口径 MUST 以实证推定并持续校验（如：用"单核→20 核耗时比"证明设备侧计时口径）。
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+### II. 本地验证门禁 (Verification Gates)
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+任何改动在交付判题前 MUST 通过分层验证，且验证必须使用与改动同源的构建产物。
+- 快门禁（约 4–5 分钟）：标准 15 例（seq15）+ 代表性子集（≥60 例，覆盖 K 类/尾块/转置/B 段/切分路径）；
+- 全量回归（后台并行于判题等待）：244 例矩阵 + soak（≥6 用例 × ≥20 次独立进程）+ 核数变体 1/4/20/32；
+- 全量回归发现任何值错误或挂死时 MUST 立即通知回退，不得静默放行。
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+### III. 最小步进与可回退 (Minimal Steps & Reversibility)
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+- 每个版本 MUST 只引入一个可归因的变化集；一次实验只验证一个假设；
+- 每个可判题版本 MUST 有 git 提交（作为唯一持久化存储）+ 明确的回退点（commit/tag）；
+- 失败版本 MUST NOT 被掩盖：回退即回到上一个判题实证版本，禁止"在坏版本上叠加"。
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### IV. 正确性先于性能，性能逐机制归因 (Correctness First, Mechanism-Attributed Performance)
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+- 15/15 通过是一切性能工作的前提；性能改动 MUST NOT 牺牲任何已通过点；
+- 性能收益 MUST 用可测量的机制解释（读写量/搬运深度/并行度/开销），并给出本地 A/B 或判题 A/B 证据；
+- 已知代价 MUST 显式记录（如某类形状并行度下降），并在后续版本中量化处置。
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+### V. 环境韧性与可追溯 (Environment Resilience & Traceability)
+
+本工程环境存在偶发文件回滚与临时目录清理，所有关键产物 MUST 可恢复：
+- 写文件后 MUST 立即校验（md5/标记），交付判题前 MUST 再次校验；
+- 主副本 MUST 进入 git（含测试资产与脚本）；临时工作产物 MUST 有 /tmp 以外的恢复路径；
+- 版本 MUST 带可 grep 的标记（如 `[Sxx-YYYY]`），供提交前甄别。
+
+## 提交与协作约束
+
+- 提交物仅为 `kernel.asc`（判题契约入口不变）；本地测试框架 `main.asc` 与脚本不随提交物约束；
+- 提交前 MUST 核对 md5 与版本标记；判题提交由用户执行，代理 MUST 给出"提交物 + md5 + 核对方法"三件套；
+- **推送策略**：默认只提交（commit），MUST NOT 推送远端；仅当用户明确要求时才执行一次推送；
+- 分支以 `main` 为准；未明确要求时不得改写历史、不得删除既有分支/标签。
+
+## 开发工作流
+
+- 工作节奏：实现 → 构建（与判题同源工具链）→ 快门禁 → 提交 + 交付判题 → 全量回归（后台）→ 判题结果归档；
+- 每次判题结果 MUST 记录到 PLAN.md（分数、逐点用时、机制结论、下步候选），作为跨会话交接依据；
+- 实测数据（含失败的方案与反例）MUST 沉淀：如"K 预重排无效"这类结论必须写明证据与排除范围，禁止重复尝试已否证方案。
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+- 本宪法优先于其他开发实践；与之冲突的流程 MUST 被修正或显式豁免并记录理由；
+- 修订 MUST 附带：变更说明 + 证据（判题数据/实验记录）+ 版本号变更（语义化：破坏性治理变更=MAJOR，新增原则/章节=MINOR，措辞澄清=PATCH）；
+- 合规审查：每次提交/判题前 MUST 对照本宪法自检（门禁、回退点、推送策略、记录完整性）；
+- 运行期指导以 `PLAN.md`（会话交接）与本宪法配合使用：宪法定规矩，PLAN 记事实。
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+**Version**: 1.0.0 | **Ratified**: 2026-10-14 | **Last Amended**: 2026-10-14
