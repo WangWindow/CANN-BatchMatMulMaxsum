@@ -19,8 +19,8 @@
 
 ## Phase 2: Foundational（本批次前置，阻塞所有故事）
 
-- [ ] T015 验证协议修正：单块形状（1-block）A/B 一律"三次取最小或 reps≥50"，写入流程与 `build/README.md`（新建；源：mac2048 测量方差教训）
-- [ ] T016 基线冻结校验：从 git `a1f8bf0` 提取 kernel.asc 至 /tmp 沙箱构建 0 错并跑 kscan 留档（回退点可用性）— 文件：kernel.asc（校验）/ build/
+- [X] T015 验证协议修正：单块形状（1-block）A/B 一律"三次取最小或 reps≥50"，写入流程与 `build/README.md`（新建；源：mac2048 测量方差教训）
+- [X] T016 基线冻结校验：从 git `a1f8bf0` 提取 kernel.asc 至 /tmp 沙箱构建 0 错并跑 kscan 留档（回退点可用性）— 文件：kernel.asc（校验）/ build/
 
 ## Phase 3: [US-streamK] K 轴切分（欠并行类）【Priority P1】
 
