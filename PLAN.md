@@ -368,3 +368,20 @@ P1（最小测试点）执行路径上，屏障批与实证版的差异仅剩：
 - 基线版本: S9, kernel.asc md5 1b1afade97e35ea5284034245ded12e5, commit 47dc041
 - 回退命令: git checkout 47dc041 -- kernel.asc
 - 目标类用例: ns1=(1,64,8192,512) ns2=(1,8,2048,2048) ns3=(2,128,512,1024)（结构等价类覆盖）
+
+# S12 修复（2026-10-14 深夜）— kernel.asc md5 17cdf786408fde8cfe4dc66eb889b4cd, commit baa7ec7
+- **关键认知修正**：ns2/ns3 此前"通过"是误读——它们根本未触发 tileSplit（tileEligible 需
+  workItems*nShards >= 20，ns2 仅 16 格、ns3 仅 8 格）。**真正触发 tileSplit 的用例此前全部失败**
+  （含 S11 判题无变化的原因：主仓库 S11 提交只含 AIV 改动，宿主/AIC 未写入，从未触发）。
+- **根因链（按发现顺序）**：
+  1. c06 过触发（12 工作项 36 tile）：`tileEligible` 加抗碎片条件 `nShards >= 8` 修复；
+  2. 计数器清零偏移错位（宿主 ringBytes*2+rBytes vs 内核 ringBytes+rBytes）：修正；
+  3. r 区双写者竞态（双子核预填会覆盖对方部分和）：改单写者（仅子核 0 写 r/计数）；
+  4. **最终根因（t1 全 1 输入 y=-inf 复现锁定）：部分和写 r / 预填 -inf 的 V→MTE3 依赖缺失**
+     ——只有 PipeBarrier<PIPE_V>，DataCopyPad 抢先读 UB 搬走 Duplicate 的 -inf。
+     补 PipeBarrier<PIPE_ALL> 后 t1=4096 精确命中。
+- 合成侧同步改造：合成改 MTE2 读 r 到 UB（与环读同路径），消除标量 GM 读的可见性风险与巨额开销。
+- **回归状态**：seq15 15/15 PASS；nsd1-3/ns1-3 6/6 PASS；c06=0.093ms（基线 93µs）无回归；
+  244 矩阵 160/244 且 **失败集合与 S9 逐例一致（零回归）**（注：84 例为基线即非绿的历史金标口径，非本次引入）；
+  soak（触发路径 7 用例 × 30 次）与核数变体 1/4/20/32 进行中。
+- 回退点：git checkout 47dc041 -- kernel.asc（S9）。
